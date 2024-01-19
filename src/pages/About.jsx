@@ -3,5 +3,5 @@ export function About() {
         <>
             <div>About NeuraChatAi</div>
         </>
-    )
+    );
 }

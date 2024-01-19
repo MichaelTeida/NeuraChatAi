@@ -1,18 +1,19 @@
 import './styles/App.scss'
-import {Link as RouterLink, Outlet} from "react-router-dom";
-import {Container, Typography} from "@mui/joy";
+import {Outlet} from "react-router-dom";
+import {Box, Container} from "@mui/joy";
+import Header from "./components/Header.jsx";
 
 function App() {
 
     return (
-        <Container sx={{ minHeight: '100dvh' }}>
-            <Typography>Hello there ;)</Typography>
-            <nav>
-                <RouterLink to="/NeuraChatAi/">Homepage</RouterLink>
-                <RouterLink to="/NeuraChatAi/about">About</RouterLink>
-            </nav>
-            <Outlet/>
-        </Container>
+        <>
+            <Header />
+            <Container sx={{ display: 'flex', minHeight: 1 }}>
+                <Box component="main" className="MainContent" sx={{ flex: 1, m: 2}}>
+                    <Outlet/>
+                </Box>
+            </Container>
+        </>
     )
 }
 
