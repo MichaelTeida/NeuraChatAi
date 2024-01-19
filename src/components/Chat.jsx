@@ -1,12 +1,13 @@
 import Output from "./Output.jsx";
 import Input from "./Input.jsx";
+import {Stack} from "@mui/joy";
 
 function Chat () {
     return (
-        <>
-            <Output/>
-            <Input/>
-        </>
+        <Stack spacing={2}>
+                <Output/>
+                <Input/>
+        </Stack>
     )
 }
 

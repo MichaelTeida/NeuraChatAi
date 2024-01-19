@@ -1,7 +1,10 @@
+import {Card} from "@mui/joy";
+
 function Output () {
     return (
-        <>
-        </>
+        <Card>
+        Test
+        </Card>
     )
 }
 
