@@ -1,7 +1,11 @@
+import {Box} from "@mui/joy";
+
 export function About() {
     return (
         <>
-            <div>About NeuraChatAi</div>
+            <Box>About NeuraChatAi</Box>
+            <Box>About NeuraChatAi</Box>
+            <Box>About NeuraChatAi</Box>
         </>
     );
 }

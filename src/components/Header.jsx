@@ -3,7 +3,7 @@ import {Link as RouterLink} from "react-router-dom";
 
 function Header () {
     return (
-    <Sheet component="header" stickyHeader
+    <Sheet component="header"
         sx={{
         display: 'flex',
         p: 2,

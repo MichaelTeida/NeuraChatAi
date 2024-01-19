@@ -9,7 +9,7 @@ function App() {
         <>
             <Header />
             <Container sx={{ display: 'flex', minHeight: 1 }}>
-                <Box component="main" className="MainContent" sx={{ flex: 1, m: 2}}>
+                <Box component="main" className="MainContent" sx={{ flex: 1, m: 2, flexDirection: {xs: "column", sm: "row"}}}>
                     <Outlet/>
                 </Box>
             </Container>
