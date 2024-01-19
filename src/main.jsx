@@ -6,6 +6,7 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom";
 import {Home} from "./pages/Home.jsx";
 import {About} from "./pages/About.jsx";
 import {CssBaseline, CssVarsProvider} from "@mui/joy";
+import theme from "./theme/theme.jsx";
 
 
 const routes = [
@@ -28,10 +29,10 @@ const routes = [
 const router = createBrowserRouter(routes);
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <CssVarsProvider disableTransitionOnChange>
+    <CssVarsProvider theme={theme} disableTransitionOnChange>
         <CssBaseline/>
-        <React.StrictMode>
-            <RouterProvider router={router}/>
-        </React.StrictMode>
+            <React.StrictMode>
+                <RouterProvider router={router}/>
+            </React.StrictMode>
     </CssVarsProvider>
 )
