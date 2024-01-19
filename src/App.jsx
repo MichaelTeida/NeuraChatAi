@@ -1,18 +1,16 @@
 import './styles/App.scss'
-import {Link, Outlet} from "react-router-dom";
+import {Link as RouterLink, Outlet} from "react-router-dom";
 
 function App() {
 
   return (
-    <>
         <div>Hello there ;)</div>
         <nav>
-            <Link to="/NeuraChatAi/">Homepage</Link>
+            <RouterLink to="/NeuraChatAi/">Homepage</RouterLink>
             <div></div>
-            <Link to="/NeuraChatAi/about">About</Link>
+            <RouterLink to="/NeuraChatAi/about">About</RouterLink>
         </nav>
         {<Outlet />}
-    </>
   )
 }
 
