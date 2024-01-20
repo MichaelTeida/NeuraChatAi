@@ -6,3 +6,4 @@ Description soon
 * React Router
 * Sass
 * Joy UI
+* OpenAI API
