@@ -1,4 +1,4 @@
-import {Box, Sheet, Stack} from "@mui/joy";
+import {Box, GlobalStyles, Sheet, Stack} from "@mui/joy";
 import {Link as RouterLink} from "react-router-dom";
 import logoNeuraChatAi from "../assets/logo NeuraChatAi.png"
 
@@ -11,14 +11,24 @@ function Header() {
                    flexGrow: 1,
                    maxWidth: 1,
                    justifyContent: "space-between",
-                   background: "secondary",
+                   height: 'var(--Header-height)'
                }}>
+            <GlobalStyles
+                styles={(theme) => ({
+                    ':root': {
+                        '--Header-height': '52px',
+                        [theme.breakpoints.up('sm')]: {
+                            '--Header-height': '70px',
+                        },
+                    },
+                })}
+            />
             <Stack direction="row"
                    justifyContent="center"
                    alignItems="center"
                    spacing={2}>
                 <Box component="img" src={logoNeuraChatAi} alt={"Logo NeuraChatAi"} sx={{
-                    maxWidth: { xs: 100, md: 100 },
+                    maxWidth: {xs: 100, md: 100},
                 }}/>
                 <RouterLink to="/NeuraChatAi/">Homepage</RouterLink>
                 <RouterLink to="/NeuraChatAi/about">About</RouterLink>

@@ -4,7 +4,7 @@ import {Stack} from "@mui/joy";
 
 function Chat() {
     return (
-        <Stack spacing={2}>
+        <Stack spacing={2} sx={{maxHeight: 'calc(100dvh - var(--Header-height))', py: 2}} >
             <Output/>
             <Input/>
         </Stack>

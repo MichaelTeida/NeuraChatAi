@@ -1,8 +1,16 @@
 import {Box, Card, Sheet, Stack, Typography} from "@mui/joy";
 
+{/*Test*/}  const ar = Array(500).fill(null)
+
 function Output() {
     return (
-        <Card>
+        <Card sx={{
+            display: 'flex',
+            flex: 1,
+            minHeight: 0,
+            overflowY: 'scroll',
+            flexDirection: 'column-reverse',
+        }}>
             <Box sx={{maxWidth: {xs: 'auto', sm: "60%"}, minWidth: 'auto'}}>
                 <Stack direction="row" justifyContent="space-beteween" spacing={2}>
                     <Typography level="body-xs">
@@ -15,6 +23,7 @@ function Output() {
                 <Sheet variant="outlined" sx={{p: 1, borderRadius: "sm", backgroundColor: "background.level1"}}>
                     <Typography component="p" fontSize={{xs: "sm", sm: "md"}} sx={{ wordBreak: "break-word" }}>
                         Messageeeeeeee
+                        {/*Test*/} {ar.map(() => <Box>Test</Box>)}
                     </Typography>
                 </Sheet>
             </Box>
