@@ -1,7 +1,5 @@
 import {Button, Card, CardActions, CardContent, Input as JoyInput} from "@mui/joy";
 import EditIcon from '@mui/icons-material/Edit';
-import SendIcon from '@mui/icons-material/Send';
-import TouchAppIcon from '@mui/icons-material/TouchApp';
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 function Input() {

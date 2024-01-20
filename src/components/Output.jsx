@@ -1,6 +1,8 @@
 import {Box, Card, Sheet, Stack, Typography} from "@mui/joy";
+import {sendMessage} from '../lib/OpenAi.jsx'
 
 function Output() {
+
     return (
         <Card sx={{
             display: 'flex',
@@ -35,7 +37,7 @@ function Output() {
                 </Stack>
                 <Sheet variant="outlined" sx={{p: 1, borderRadius: "sm", backgroundColor: "background.level1"}}>
                     <Typography component="p" fontSize={{xs: "sm", sm: "md"}} sx={{ wordBreak: "break-word" }}>
-                        MessageeeeeeeeMessageeeeeeeeMessageeeeeeeeMessageeeeeeee
+                        Messageeeeeeee
                     </Typography>
                 </Sheet>
             </Box>
