@@ -4,7 +4,7 @@ Description soon
 
 * React
 * React Router
-* OpenAI API
+* OpenAI API 4.24.7
 * JS
 * Sass
 * Joy UI

@@ -18,5 +18,6 @@ export async function sendMessage(message) {
         messages: [{"role": "user", "content": message}],
         ...params
     })
+
     return chatCompletion.choices[0].message.content
 }
