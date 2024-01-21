@@ -1,7 +1,7 @@
 import {Box, Button, Card, CardContent, Input as JoyInput, Sheet, Stack, Typography} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useRef} from "react";
 import {sendMessage} from "../lib/OpenAi.jsx";
 
 function Chat() {
@@ -9,8 +9,10 @@ function Chat() {
     const [output, setOutput] = useState("")
     const [messages, setMessages] = useState([{
         isHuman: false,
-        content: "Example text from NeuraChat"
+        content: "Example text from NeuraChat",
     }])
+
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
         if (output) {
@@ -20,6 +22,10 @@ function Chat() {
             ]);
         }
     }, [output])
+
+    useEffect(() => {
+        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+    }, [messages])
 
     const handleSend = async () => {
         setMessages((prevMessages) => [
@@ -41,22 +47,25 @@ function Chat() {
                 {messages.map((el, index) => {
                     return (
                         <Box key={index} sx={{maxWidth: {xs: 'auto', sm: "60%"}, minWidth: 'auto'}}>
-                            <Stack direction="row" justifyContent="space-beteween" spacing={2}>
+                            <Stack direction="row" justifyContent="space-between" spacing={2}>
                                 <Typography level="body-xs">
                                     {el.isHuman ? "You" : "NeuraChat"}
                                 </Typography>
                                 <Typography level="body-xs">
-                                    Timestamp
+
                                 </Typography>
                             </Stack>
-                            <Sheet variant="outlined" sx={{p: 1, borderRadius: "sm", backgroundColor: "background.level1"}}>
-                                <Typography component="p" fontSize={{xs: "sm", sm: "md"}} sx={{wordBreak: "break-word"}}>
+                            <Sheet variant="outlined"
+                                   sx={{p: 1, borderRadius: "sm", backgroundColor: "background.level1"}}>
+                                <Typography component="p" fontSize={{xs: "sm", sm: "md"}}
+                                            sx={{wordBreak: "break-word"}}>
                                     {el.content}
                                 </Typography>
                             </Sheet>
                         </Box>
                     )
                 })}
+                <Box ref={messagesEndRef}/>
             </Card>
             <Card>
                 <CardContent sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}}}>
