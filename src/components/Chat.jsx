@@ -37,6 +37,12 @@ function Chat() {
         setInput("")
     }
 
+    const handleClick = async (event) => {
+        if(event.key == 'Enter') {
+            await handleSend()
+        }
+    }
+
     return (
         <Stack spacing={2} sx={{height: 'calc(100dvh - var(--Header-height))', py: 2}}>
             <Card sx={{
@@ -78,6 +84,7 @@ function Chat() {
                         onChange={(e) => {
                             setInput(e.target.value)
                         }}
+                        onKeyDown={handleClick}
                     />
                     <Button onClick={handleSend}><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
                 </CardContent>
