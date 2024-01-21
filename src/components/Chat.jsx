@@ -10,6 +10,7 @@ function Chat() {
     const [messages, setMessages] = useState([{
         isHuman: false,
         content: "Example text from NeuraChat",
+        timestamp: new Date(Date.now())
     }])
 
     const messagesEndRef = useRef(null);
@@ -18,7 +19,7 @@ function Chat() {
         if (output) {
             setMessages((prevMessages) => [
                 ...prevMessages,
-                {isHuman: false, content: output}
+                {isHuman: false, content: output, timestamp: new Date(Date.now())}
             ]);
         }
     }, [output])
@@ -30,7 +31,7 @@ function Chat() {
     const handleSend = async () => {
         setMessages((prevMessages) => [
             ...prevMessages,
-            {isHuman: true, content: input}
+            {isHuman: true, content: input, timestamp: new Date(Date.now())}
         ]);
         setOutput(await sendMessage(input))
         setInput("")
@@ -52,7 +53,7 @@ function Chat() {
                                     {el.isHuman ? "You" : "NeuraChat"}
                                 </Typography>
                                 <Typography level="body-xs">
-
+                                    {el.timestamp.getHours()}:{el.timestamp.getMinutes()}:{el.timestamp.getSeconds()}
                                 </Typography>
                             </Stack>
                             <Sheet variant="outlined"
