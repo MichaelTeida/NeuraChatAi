@@ -1,4 +1,4 @@
-import {Box, Button, Card, CardContent, Input as JoyInput, Sheet, Stack, Typography} from "@mui/joy";
+import {Box, Button, Card, CardContent, FormControl, Input as JoyInput, Sheet, Stack, Typography} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
@@ -33,12 +33,13 @@ function Chat() {
             ...prevMessages,
             {isHuman: true, content: input, timestamp: new Date(Date.now())}
         ]);
-        setOutput(await sendMessage(input))
         setInput("")
+        setOutput(await sendMessage(input))
     }
 
     const handleClick = async (event) => {
-        if(event.key == 'Enter') {
+        if(event.key === 'Enter') {
+            event.preventDefault()
             await handleSend()
         }
     }
@@ -75,7 +76,7 @@ function Chat() {
                 <Box ref={messagesEndRef}/>
             </Card>
             <Card>
-                <CardContent sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}}}>
+                <FormControl sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
                     <JoyInput
                         startDecorator={<EditIcon/>}
                         placeholder="Type something here…"
@@ -86,8 +87,8 @@ function Chat() {
                         }}
                         onKeyDown={handleClick}
                     />
-                    <Button onClick={handleSend}><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
-                </CardContent>
+                    <Button type="submit" onClick={handleSend}><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
+                </FormControl>
             </Card>
         </Stack>
     )
