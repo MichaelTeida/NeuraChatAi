@@ -1,8 +1,6 @@
 import {Box, Card, Sheet, Stack, Typography} from "@mui/joy";
-import {sendMessage} from '../lib/OpenAi.jsx'
 
 function Output() {
-
     return (
         <Card sx={{
             display: 'flex',
