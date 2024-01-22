@@ -1,15 +1,16 @@
-import {Box, Button, Card, CardContent, FormControl, Input as JoyInput, Sheet, Stack, Typography} from "@mui/joy";
+import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
 import {sendMessage} from "../lib/OpenAi.jsx";
+import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
 
 function Chat() {
     const [input, setInput] = useState("")
     const [output, setOutput] = useState("")
     const [messages, setMessages] = useState([{
         isHuman: false,
-        content: "Example text from NeuraChat",
+        content: "Hello, how can I help you?",
         timestamp: new Date(Date.now())
     }])
 
@@ -25,7 +26,7 @@ function Chat() {
     }, [output])
 
     useEffect(() => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" })
+        messagesEndRef.current.scrollIntoView({behavior: "smooth"})
     }, [messages])
 
     const handleSend = async () => {
@@ -38,7 +39,7 @@ function Chat() {
     }
 
     const handleClick = async (event) => {
-        if(event.key === 'Enter') {
+        if (event.key === 'Enter') {
             event.preventDefault()
             await handleSend()
         }
@@ -50,26 +51,39 @@ function Chat() {
                 flex: 1,
                 minHeight: 0,
                 overflowY: 'scroll',
-                flexDirection: 'column',
+                backgroundColor: 'background.level1'
             }}>
                 {messages.map((el, index) => {
                     return (
-                        <Box key={index} sx={{maxWidth: {xs: 'auto', sm: "60%"}, minWidth: 'auto'}}>
-                            <Stack direction="row" justifyContent="space-between" spacing={2}>
-                                <Typography level="body-xs">
-                                    {el.isHuman ? "You" : "NeuraChat"}
-                                </Typography>
-                                <Typography level="body-xs">
-                                    {el.timestamp.getHours()}:{el.timestamp.getMinutes()}:{el.timestamp.getSeconds()}
-                                </Typography>
-                            </Stack>
-                            <Sheet variant="outlined"
-                                   sx={{p: 1, borderRadius: "sm", backgroundColor: "background.level1"}}>
-                                <Typography component="p" fontSize={{xs: "sm", sm: "md"}}
-                                            sx={{wordBreak: "break-word"}}>
-                                    {el.content}
-                                </Typography>
-                            </Sheet>
+                        <Box key={index} display="flex">
+                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare} sx={{marginRight: 1, mt: 0.4}}/>}
+                            <Box display="flex" flexDirection="column" alignItems={el.isHuman ? "flex-end" : "flex-start"} width="100%">
+                                <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: 'auto'}}>
+                                    <Stack direction="row" justifyContent="space-between" spacing={2}>
+                                        <Typography level="body-xs">
+                                            {el.isHuman ? "You" : "NeuraChat"}
+                                        </Typography>
+                                        <Typography level="body-xs">
+                                            {el.timestamp.getHours()}:{el.timestamp.getMinutes()}:{el.timestamp.getSeconds()}
+                                        </Typography>
+                                    </Stack>
+                                    <Sheet variant="outlined"
+                                           sx={{
+                                               p: 1,
+                                               borderRadius: "sm",
+                                               backgroundColor: el.isHuman ? "primary.500" : "primary.50",
+                                               "&:hover": {filter: "brightness(97%)"}
+                                           }}>
+                                        <Typography component="p" fontSize={{xs: "sm", sm: "md"}}
+                                                    sx={{
+                                                        color: el.isHuman ? "neutral.50" : "text.primary",
+                                                        wordBreak: "break-word"
+                                                    }}>
+                                            {el.content}
+                                        </Typography>
+                                    </Sheet>
+                                </Box>
+                            </Box>
                         </Box>
                     )
                 })}
