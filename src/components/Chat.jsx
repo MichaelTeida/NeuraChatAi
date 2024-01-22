@@ -4,6 +4,7 @@ import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
 import {sendMessage} from "../lib/OpenAi.jsx";
 import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
+import CopyToClipboardBtn from "../components/CopyToClipbaordBtn.jsx"
 
 function Chat() {
     const [input, setInput] = useState("")
@@ -56,8 +57,10 @@ function Chat() {
                 {messages.map((el, index) => {
                     return (
                         <Box key={index} display="flex">
-                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare} sx={{marginRight: 1, mt: 0.4}}/>}
-                            <Box display="flex" flexDirection="column" alignItems={el.isHuman ? "flex-end" : "flex-start"} width="100%">
+                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare}
+                                                         sx={{marginRight: 1, mt: 0.4}}/>}
+                            <Box display="flex" flexDirection="column"
+                                 alignItems={el.isHuman ? "flex-end" : "flex-start"} width="100%">
                                 <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: 'auto'}}>
                                     <Stack direction="row" justifyContent="space-between" spacing={2}>
                                         <Typography level="body-xs">
@@ -74,12 +77,13 @@ function Chat() {
                                                backgroundColor: el.isHuman ? "primary.500" : "primary.50",
                                                "&:hover": {filter: "brightness(97%)"}
                                            }}>
-                                        <Typography component="p" fontSize={{xs: "sm", sm: "md"}}
+                                        <Typography component="p" className="selectMessageContent" fontSize={{xs: "sm", sm: "md"}}
                                                     sx={{
                                                         color: el.isHuman ? "neutral.50" : "text.primary",
                                                         wordBreak: "break-word"
                                                     }}>
                                             {el.content}
+                                            <CopyToClipboardBtn content={el.content}/>
                                         </Typography>
                                     </Sheet>
                                 </Box>
