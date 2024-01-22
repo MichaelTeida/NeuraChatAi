@@ -18,6 +18,6 @@ export async function sendMessage(message) {
         messages: [{"role": "system", "content": "You are NeuraChat, an AI chat system developed by Michael Teida."},{"role": "user", "content": message}],
         ...params
     })
-
+// test
     return chatCompletion.choices[0].message.content
 }
