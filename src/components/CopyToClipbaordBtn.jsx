@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {IconButton, Snackbar} from '@mui/joy'
 import {useState} from "react";
+import InfoIcon from '@mui/icons-material/Info';
 
 const CopyToClipboardBtn = ({content}) => {
     const [open, setOpen] = useState(false)
@@ -17,7 +18,7 @@ const CopyToClipboardBtn = ({content}) => {
     return <IconButton sx={{m: 1.5}} onClick={handleClick}>
         <ContentCopyIcon/>
             <Snackbar open={open} onClose={handleClose} autoHideDuration={2000} variant="outlined">
-                Text copied to clipboard
+                <InfoIcon/> Text copied to clipboard
             </Snackbar>
     </IconButton>
 }
