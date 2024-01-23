@@ -1,10 +1,11 @@
-import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar} from "@mui/joy";
+import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar, Snackbar} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
 import {sendMessage} from "../lib/OpenAi.jsx";
 import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
-import CopyToClipboardBtn from "../components/CopyToClipbaordBtn.jsx"
+import CopyToClipboardBtn from "../components/CopyToClipboardBtn.jsx"
+import InfoIcon from "@mui/icons-material/Info";
 
 function Chat() {
     const [input, setInput] = useState("")
@@ -47,6 +48,16 @@ function Chat() {
         }
     }
 
+
+    const [openSnackbar, setOpenSnackbar] = useState(false)
+
+    const handleOpenSnackbar = () => {
+        setOpenSnackbar(true)
+    }
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false)
+    }
+
     return (
         <Stack spacing={2} sx={{height: 'calc(100dvh - var(--Header-height))', py: 2}}>
             <Card sx={{
@@ -87,7 +98,10 @@ function Chat() {
                                         </Typography>
                                     </Sheet>
                                 </Box>
-                                {(el.isHuman || hoveredIndex !== index) ? null : <CopyToClipboardBtn content={el.content}/>}
+                                {(el.isHuman || hoveredIndex !== index) ? null : <CopyToClipboardBtn content={el.content} handleOpenSnackbar={handleOpenSnackbar}/>}
+                                <Snackbar open={openSnackbar} onClose={handleCloseSnackbar} autoHideDuration={2000} variant="outlined" anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                                    <InfoIcon/> Text copied to clipboard
+                                </Snackbar>
                             </Stack>
                         </Box>
                     )
