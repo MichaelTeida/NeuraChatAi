@@ -9,3 +9,4 @@ Description soon
 * Sass
 * Joy UI
 * Material Icons
+* Day.js

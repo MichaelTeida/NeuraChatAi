@@ -6,14 +6,18 @@ import {sendMessage} from "../lib/OpenAi.jsx";
 import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
 import CopyToClipboardBtn from "../components/CopyToClipboardBtn.jsx"
 import InfoIcon from "@mui/icons-material/Info";
+import dayjs from "dayjs";
+import calendar from 'dayjs/plugin/calendar';
 
 function Chat() {
+    dayjs.extend(calendar);
+
     const [input, setInput] = useState("")
     const [output, setOutput] = useState("")
     const [messages, setMessages] = useState([{
         isHuman: false,
         content: "Hello, how can I help you?",
-        timestamp: new Date(Date.now())
+        timestamp: dayjs().calendar().toString(),
     }])
     const [hoveredIndex, setHoveredIndex] = useState(null);
 
@@ -23,7 +27,7 @@ function Chat() {
         if (output) {
             setMessages((prevMessages) => [
                 ...prevMessages,
-                {isHuman: false, content: output, timestamp: new Date(Date.now())}
+                {isHuman: false, content: output, timestamp: dayjs().calendar().toString(),}
             ]);
         }
     }, [output])
@@ -35,7 +39,7 @@ function Chat() {
     const handleSend = async () => {
         setMessages((prevMessages) => [
             ...prevMessages,
-            {isHuman: true, content: input, timestamp: new Date(Date.now())}
+            {isHuman: true, content: input, timestamp: dayjs().calendar().toString(),}
         ]);
         setInput("")
         setOutput(await sendMessage(input))
@@ -79,7 +83,7 @@ function Chat() {
                                             {el.isHuman ? "You" : "NeuraChat"}
                                         </Typography>
                                         <Typography level="body-xs">
-                                            {el.timestamp.getHours()}:{el.timestamp.getMinutes()}:{el.timestamp.getSeconds()}
+                                            {el.timestamp}
                                         </Typography>
                                     </Stack>
                                     <Sheet variant="outlined"
