@@ -14,6 +14,7 @@ function Chat() {
         content: "Hello, how can I help you?",
         timestamp: new Date(Date.now())
     }])
+    const [hoveredIndex, setHoveredIndex] = useState(null);
 
     const messagesEndRef = useRef(null);
 
@@ -56,12 +57,12 @@ function Chat() {
             }}>
                 {messages.map((el, index) => {
                     return (
-                        <Box key={index} display="flex">
-                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare}
-                                                         sx={{marginRight: 1, mt: 0.4}}/>}
-                            <Box display="flex" flexDirection="column"
-                                 alignItems={el.isHuman ? "flex-end" : "flex-start"} width="100%">
-                                <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: 'auto'}}>
+                        <Box key={index} display="flex" alignItems="flex-start">
+                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare} sx={{marginRight: 1, mt: 0.4}}/>}
+                            <Stack display="flex" direction="row" flexDirection={el.isHuman ? 'row-reverse' : 'row'} width="100%"
+                                   onMouseEnter={() => (el.isHuman ? null : setHoveredIndex(index))}
+                                   onMouseLeave={() => (el.isHuman ? null : setHoveredIndex(null))}>
+                                <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: '60%'}}>
                                     <Stack direction="row" justifyContent="space-between" spacing={2}>
                                         <Typography level="body-xs">
                                             {el.isHuman ? "You" : "NeuraChat"}
@@ -83,11 +84,11 @@ function Chat() {
                                                         wordBreak: "break-word"
                                                     }}>
                                             {el.content}
-                                            <CopyToClipboardBtn content={el.content}/>
                                         </Typography>
                                     </Sheet>
                                 </Box>
-                            </Box>
+                                {(el.isHuman || hoveredIndex !== index) ? null : <CopyToClipboardBtn content={el.content}/>}
+                            </Stack>
                         </Box>
                     )
                 })}
@@ -111,5 +112,4 @@ function Chat() {
         </Stack>
     )
 }
-
 export default Chat
