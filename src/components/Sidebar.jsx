@@ -10,13 +10,16 @@ const Sidebar = () => {
     const [topG, setTopG] = useState(1);
 
     useEffect(() => {
-        setOpenAiParams({
-            model: model,
-            temperature: temperature,
-            max_tokens: maxTokens,
-            frequency_penalty: frequencyPenalty,
-            top_p: topG,
-        });
+        const timeout = setTimeout(() => {
+            setOpenAiParams({
+                model: model,
+                temperature: temperature,
+                max_tokens: maxTokens,
+                frequency_penalty: frequencyPenalty,
+                top_p: topG,
+            });
+        }, 400);
+        return () => clearTimeout(timeout);
     }, [model, temperature, maxTokens, frequencyPenalty, topG])
 
     return <Sheet sx={{borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
