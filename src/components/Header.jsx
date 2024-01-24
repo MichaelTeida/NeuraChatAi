@@ -11,7 +11,8 @@ function Header() {
                    flexGrow: 1,
                    maxWidth: 1,
                    justifyContent: "space-between",
-                   height: 'var(--Header-height)'
+                   height: 'var(--Header-height)',
+                   borderBottom: '1px solid', borderColor: 'divider'
                }}>
             <GlobalStyles
                 styles={(theme) => ({

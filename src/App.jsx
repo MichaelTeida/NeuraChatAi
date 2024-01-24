@@ -8,11 +8,9 @@ function App() {
     return (
         <>
             <Header />
-            <Container sx={{ display: 'flex' }}>
-                <Box component="main" className="MainContent" sx={{ flex: 1, flexDirection: {xs: "column", sm: "row"}}}>
+                <Box component="main" className="MainContent">
                     <Outlet/>
                 </Box>
-            </Container>
         </>
     )
 }

@@ -63,12 +63,12 @@ function Chat() {
     }
 
     return (
-        <Stack spacing={2} sx={{height: 'calc(100dvh - var(--Header-height))', py: 2}}>
+        <Stack flex={8} spacing={2} sx={{height: 'calc(100dvh - var(--Header-height))', p: 2}}>
             <Card sx={{
                 flex: 1,
                 minHeight: 0,
                 overflowY: 'scroll',
-                backgroundColor: 'background.level1'
+                backgroundColor: 'primary.50'
             }}>
                 {messages.map((el, index) => {
                     return (
@@ -89,8 +89,10 @@ function Chat() {
                                     <Sheet variant="outlined"
                                            sx={{
                                                p: 1,
-                                               borderRadius: "sm",
-                                               backgroundColor: el.isHuman ? "primary.500" : "primary.50",
+                                               borderRadius: "lg",
+                                               borderTopRightRadius: el.isHuman ? 0 : "lg",
+                                               borderTopLeftRadius: el.isHuman ? "lg" : 0,
+                                               backgroundColor: el.isHuman ? "primary.500" : "background.body",
                                                "&:hover": {filter: "brightness(97%)"}
                                            }}>
                                         <Typography component="p" className="selectMessageContent" fontSize={{xs: "sm", sm: "md"}}
@@ -112,7 +114,8 @@ function Chat() {
                 })}
                 <Box ref={messagesEndRef}/>
             </Card>
-            <Card>
+            <Card sx={{
+                backgroundColor: 'background.level'}}>
                 <FormControl sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
                     <JoyInput
                         startDecorator={<EditIcon/>}

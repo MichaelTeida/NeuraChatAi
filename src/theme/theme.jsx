@@ -5,7 +5,6 @@ const theme = extendTheme({
         light: {
             palette: {
                 background: {
-                    body: '#cddbf6'
                 }
             }
         },
