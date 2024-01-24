@@ -1,7 +1,7 @@
-import {Box, Divider, List, ListItem, ListItemButton, Sheet} from "@mui/joy";
+import {Divider, List, ListItem, ListItemButton, Sheet} from "@mui/joy";
 
 const Sidebar = () => {
-    return <Box width="300px" sx={{borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll'}}>
+    return <Sheet sx={{borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 2}}>
             <List>
                 {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text) => (
                     <ListItem key={text}>
@@ -17,7 +17,7 @@ const Sidebar = () => {
                     </ListItem>
                 ))}
             </List>
-        </Box>
+        </Sheet>
 }
 
 export default Sidebar
