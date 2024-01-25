@@ -50,8 +50,8 @@ function Chat() {
 
     const [openSnackbar, setOpenSnackbar] = useState(false)
 
-    const handleOpenSnackbar = () => {
-        setOpenSnackbar(true)
+    const handleOpenSnackbar = async () => {
+        await setOpenSnackbar(true)
     }
     const handleCloseSnackbar = () => {
         setOpenSnackbar(false)
@@ -101,9 +101,6 @@ function Chat() {
                                     </Sheet>
                                 </Box>
                                 {(el.isHuman || hoveredIndex !== index) ? null : <CopyToClipboardBtn content={el.content} handleOpenSnackbar={handleOpenSnackbar}/>}
-                                <Snackbar open={openSnackbar} onClose={handleCloseSnackbar} autoHideDuration={2000} variant="outlined" anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                                    <InfoIcon/> Text copied to clipboard
-                                </Snackbar>
                             </Stack>
                         </Box>
                     )
@@ -114,10 +111,13 @@ function Chat() {
                 {/*<form onSubmit={handleSend}>*/}
                 <form onSubmit={(event) => {
                     event.preventDefault()
+                    // if(event.currentTarget.elements.text.value.length < 2) {
+                    // }
                     handleSend()
                 }}>
                     <FormControl required sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
                         <JoyInput
+                            name="text"
                             startDecorator={<EditIcon/>}
                             placeholder="Type something here…"
                             sx={{"--Input-minHeight": "48px", flexGrow: 1}}
@@ -130,6 +130,9 @@ function Chat() {
                     </FormControl>
                 </form>
             </Card>
+            <Snackbar open={openSnackbar} onClose={handleCloseSnackbar} autoHideDuration={1500} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
+                <InfoIcon/> Text copied to clipboard
+            </Snackbar>
         </Stack>
     )
 }
