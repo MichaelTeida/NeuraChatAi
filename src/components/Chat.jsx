@@ -58,17 +58,18 @@ function Chat() {
     }
 
     return (
-        <Stack flex={8} spacing={2} sx={{height: 'calc(100dvh - var(--Header-height))', p: 2}}>
+        <Stack flex={8} spacing={2} sx={{height: 'calc(100dvh - var(--Header-height))', py: 2}}>
             <Card sx={{
                 flex: 1,
                 minHeight: 0,
                 overflowY: 'scroll',
-                backgroundColor: 'primary.50'
+                backgroundColor: 'primary.50',
+                pl: {xs: 1, md: 2}
             }}>
                 {messages.map((el, index) => {
                     return (
                         <Box key={index} display="flex" alignItems="flex-start">
-                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare} sx={{marginRight: 1, mt: 0.4}}/>}
+                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare} sx={{marginRight: {xs: 0.5, md: 1} , mt: 0.4, pl: 0}}/>}
                             <Stack display="flex" direction="row" flexDirection={el.isHuman ? 'row-reverse' : 'row'} width="100%"
                                    onMouseEnter={() => (el.isHuman ? null : setHoveredIndex(index))}
                                    onMouseLeave={() => (el.isHuman ? null : setHoveredIndex(null))}>
