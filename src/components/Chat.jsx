@@ -36,20 +36,15 @@ function Chat() {
         messagesEndRef.current.scrollIntoView({behavior: "smooth"})
     }, [messages])
 
-    const handleSend = async () => {
+    const handleSend = () => {
         setMessages((prevMessages) => [
             ...prevMessages,
             {isHuman: true, content: input, timestamp: dayjs().calendar().toString(),}
         ]);
         setInput("")
-        setOutput(await sendMessage(input))
-    }
-
-    const handleClick = async (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault()
-            await handleSend()
-        }
+        sendMessage(input).then((response) => {
+            setOutput(response)
+        })
     }
 
 
@@ -114,21 +109,25 @@ function Chat() {
                 })}
                 <Box ref={messagesEndRef}/>
             </Card>
-            <Card sx={{
-                backgroundColor: 'background.level'}}>
-                <FormControl sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
-                    <JoyInput
-                        startDecorator={<EditIcon/>}
-                        placeholder="Type something here…"
-                        sx={{"--Input-minHeight": "48px", flexGrow: 1}}
-                        value={input}
-                        onChange={(e) => {
-                            setInput(e.target.value)
-                        }}
-                        onKeyDown={handleClick}
-                    />
-                    <Button type="submit" onClick={handleSend}><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
-                </FormControl>
+            <Card sx={{backgroundColor: 'background.level'}}>
+                {/*<form onSubmit={handleSend}>*/}
+                <form onSubmit={(event) => {
+                    event.preventDefault()
+                    handleSend()
+                }}>
+                    <FormControl required sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
+                        <JoyInput
+                            startDecorator={<EditIcon/>}
+                            placeholder="Type something here…"
+                            sx={{"--Input-minHeight": "48px", flexGrow: 1}}
+                            value={input}
+                            onChange={(e) => {
+                                setInput(e.target.value)
+                            }}
+                        />
+                        <Button type="submit"><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
+                    </FormControl>
+                </form>
             </Card>
         </Stack>
     )

@@ -22,7 +22,7 @@ const Sidebar = () => {
         return () => clearTimeout(timeout);
     }, [model, temperature, maxTokens, frequencyPenalty, topG])
 
-    return <Sheet sx={{borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
+    return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
         <Divider sx={{mb: 2}}><Chip variant="outlined">Settings</Chip></Divider>
 
         <Box sx={{my: 2, mb: 3}}>
@@ -43,7 +43,10 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Temperature: <Chip variant="soft" sx={{px: 2, mb: 0.2}}>{temperature}</Chip></Typography>
+            <Typography component="div" level="title-sm">Temperature: <Chip variant="soft" sx={{
+                px: 2,
+                mb: 0.2
+            }}>{temperature}</Chip></Typography>
             <Slider
                 value={temperature}
                 onChange={(event, value) => setTemperature(value)}
@@ -62,7 +65,10 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Frequency Penalty: <Chip variant="soft" sx={{px: 2, mb: 0.2}}>{frequencyPenalty}</Chip></Typography>
+            <Typography component="div" level="title-sm">Frequency Penalty: <Chip variant="soft" sx={{
+                px: 2,
+                mb: 0.2
+            }}>{frequencyPenalty}</Chip></Typography>
             <Slider
                 value={frequencyPenalty}
                 onChange={(event, value) => setFrequencyPenalty(value)}
@@ -81,7 +87,10 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Max tokens: <Chip variant="soft" sx={{px: 2, mb: 0.2}}>{maxTokens}</Chip></Typography>
+            <Typography component="div" level="title-sm">Max tokens: <Chip variant="soft" sx={{
+                px: 2,
+                mb: 0.2
+            }}>{maxTokens}</Chip></Typography>
             <Slider
                 value={maxTokens}
                 onChange={(event, value) => setMaxTokens(value)}
