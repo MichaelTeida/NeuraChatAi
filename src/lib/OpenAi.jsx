@@ -37,6 +37,6 @@ export async function sendMessage(message) {
         } else if (error.status === 401) {
             console.error("Error: " + "Invalid Authentication")
         }
-        throw error;
+
     }
 }
