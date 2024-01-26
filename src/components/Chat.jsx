@@ -60,7 +60,7 @@ function Chat() {
                 flex: 1,
                 minHeight: 0,
                 overflowY: 'scroll',
-                backgroundColor: 'primary.50',
+                backgroundColor: 'background.level1',
                 pl: {xs: 1, md: 2}
             }}>
                 {messages.map((el, index) => {

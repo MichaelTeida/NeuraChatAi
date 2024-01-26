@@ -1,8 +1,19 @@
-import {Box, GlobalStyles, Sheet, Stack} from "@mui/joy";
+import {Box, GlobalStyles, Sheet, Stack, Typography} from "@mui/joy";
 import {Link as RouterLink} from "react-router-dom";
 import logoNeuraChatAi from "../assets/logo NeuraChatAi.png"
+import logoNeuraChatAiWhite from "../assets/logo NeuraChatAi white.png"
+import ModeToggle from "./ModeToggle.jsx";
+import {useEffect, useState} from "react";
+import { useColorScheme } from '@mui/joy/styles';
 
 function Header() {
+    const {mode} = useColorScheme();
+    const [logoHeader, setLogoHeader] = useState(mode)
+
+    useEffect(() => {
+        mode === 'light' ? setLogoHeader(logoNeuraChatAi) : setLogoHeader(logoNeuraChatAiWhite)
+    },[mode])
+
     return (
         <Sheet component="header"
                sx={{
@@ -28,11 +39,11 @@ function Header() {
                    justifyContent="center"
                    alignItems="center"
                    spacing={2}>
-                <Box component="img" src={logoNeuraChatAi} alt={"Logo NeuraChatAi"} sx={{
+                <Box component="img" src={logoHeader} alt={"Logo NeuraChatAi"} sx={{
                     maxWidth: {xs: 100, md: 100},
                 }}/>
-                <RouterLink to="/NeuraChatAi/">Homepage</RouterLink>
-                <RouterLink to="/NeuraChatAi/about">About</RouterLink>
+                <RouterLink to="/NeuraChatAi/"><Typography>Homepage</Typography></RouterLink>
+                <RouterLink to="/NeuraChatAi/about"><Typography>About</Typography></RouterLink>
             </Stack>
             <Stack direction="row"
                    justifyContent="center"
@@ -40,6 +51,7 @@ function Header() {
                    spacing={1}>
 
             </Stack>
+            <ModeToggle />
         </Sheet>
     )
 }

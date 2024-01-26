@@ -1,16 +1,16 @@
 import './styles/App.scss'
 import {Outlet} from "react-router-dom";
-import {Box} from "@mui/joy";
+import {Sheet} from "@mui/joy";
 import Header from "./components/Header.jsx";
 
 function App() {
 
     return (
         <>
-            <Header />
-                <Box component="main" className="MainContent">
-                    <Outlet/>
-                </Box>
+            <Header/>
+            <Sheet component="main" className="MainContent">
+                <Outlet/>
+            </Sheet>
         </>
     )
 }
