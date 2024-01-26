@@ -112,7 +112,7 @@ function Chat() {
                 <form onSubmit={(event) => {
                     event.preventDefault()
                     if (event.currentTarget.elements.text.value.length > 3000) {
-                        setMessageSnackbar("Warning - Minimum character count: 2")
+                        setMessageSnackbar("Warning - Maximum character count: 3000")
                     } else {
                         handleSend()
                         setFormDisabled(true)
