@@ -1,13 +1,14 @@
-import {Divider, Select, Sheet, Slider, Typography, Option, Box, Chip} from "@mui/joy";
+import {Divider, Select, Sheet, Slider, Typography, Option, Box, Chip, Tooltip, IconButton} from "@mui/joy";
 import {useEffect, useState} from "react";
 import {setOpenAiParams} from "../lib/OpenAi.jsx";
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const Sidebar = () => {
     const [model, setModel] = useState('gpt-3.5-turbo');
     const [temperature, setTemperature] = useState(0.7);
     const [maxTokens, setMaxTokens] = useState(500);
     const [frequencyPenalty, setFrequencyPenalty] = useState(0.01);
-    const [topG, setTopG] = useState(1);
+    const [topP, setTopP] = useState(1);
 
     useEffect(() => {
         const timeout = setTimeout(() => {
@@ -16,17 +17,25 @@ const Sidebar = () => {
                 temperature: temperature,
                 max_tokens: maxTokens,
                 frequency_penalty: frequencyPenalty,
-                top_p: topG,
+                top_p: topP,
             });
         }, 400);
         return () => clearTimeout(timeout);
-    }, [model, temperature, maxTokens, frequencyPenalty, topG])
+    }, [model, temperature, maxTokens, frequencyPenalty, topP])
 
     return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
         <Divider sx={{mb: 2}}><Chip variant="outlined">Settings</Chip></Divider>
 
         <Box sx={{my: 2, mb: 3}}>
-            <Typography component="div" level="title-sm" sx={{mb: 1}}>Model:</Typography>
+            <Box sx={{mb: 1}} display="flex" justifyContent="space-between" alignItems="center">
+                <Typography component="div" level="title-sm" >Model:</Typography>
+                <Tooltip title={<div>Choose the AI language model for your chat. <br/>Different models have varying capabilities and performance.</div>}
+                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                    <IconButton size="sm" sx={{borderRadius: 40}}>
+                        <InfoOutlinedIcon/>
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Select defaultValue={model} size="sm" onChange={(event, value) => setModel(value)} sx={{}}>
                 <Option value="gpt-3.5-turbo">gpt-3.5-turbo</Option>
                 <Option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</Option>
@@ -43,10 +52,17 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Temperature: <Chip variant="soft" sx={{
-                px: 2,
-                mb: 0.2
-            }}>{temperature}</Chip></Typography>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography component="div" level="title-sm">Temperature: <Chip variant="soft">{temperature}</Chip></Typography>
+                <Tooltip title={<div>Control the randomness of AI responses. Higher values (e.g., 0.8) make output
+                    more<br/> diverse, while lower values (e.g., 0.2) yield focused and deterministic replies.<br/>
+                    Adjust alongside top-p, but not both. (Default: 1)</div>}
+                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                    <IconButton size="sm" sx={{borderRadius: 40}}>
+                        <InfoOutlinedIcon/>
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Slider
                 value={temperature}
                 onChange={(event, value) => setTemperature(value)}
@@ -65,10 +81,17 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Frequency Penalty: <Chip variant="soft" sx={{
-                px: 2,
-                mb: 0.2
-            }}>{frequencyPenalty}</Chip></Typography>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography component="div" level="title-sm">Frequency Penalty: <Chip variant="soft">{frequencyPenalty}</Chip></Typography>
+                <Tooltip title={<div>Influence tendency to introduce new topics.<br/> Positive values (0 to 2.0)
+                    penalize new tokens based on their presence in the text,<br/> encouraging the AI to explore and
+                    discuss fresh ideas. (Default: 0)</div>}
+                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                    <IconButton size="sm" sx={{borderRadius: 40}}>
+                        <InfoOutlinedIcon/>
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Slider
                 value={frequencyPenalty}
                 onChange={(event, value) => setFrequencyPenalty(value)}
@@ -87,10 +110,17 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Max tokens: <Chip variant="soft" sx={{
-                px: 2,
-                mb: 0.2
-            }}>{maxTokens}</Chip></Typography>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography component="div" level="title-sm">Max tokens: <Chip variant="soft">{maxTokens}</Chip></Typography>
+                <Tooltip title={<div>Limit the total tokens generated in chat completion.<br/> The sum of input and
+                    output tokens is restricted by the context length.<br/> Adjust this to manage the length of
+                    your AI-generated responses.</div>}
+                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                    <IconButton size="sm" sx={{borderRadius: 40}}>
+                        <InfoOutlinedIcon/>
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Slider
                 value={maxTokens}
                 onChange={(event, value) => setMaxTokens(value)}
@@ -109,13 +139,24 @@ const Sidebar = () => {
         </Box>
 
         <Box sx={{my: 1}}>
-            <Typography component="div" level="title-sm">Top_p: <Chip variant="soft" sx={{px: 2, mb: 0.2}}>{topG}</Chip></Typography>
+            <Box display="flex" justifyContent="space-between" alignItems="center">
+                <Typography component="div" level="title-sm">Top_p: <Chip variant="soft">{topP}</Chip></Typography>
+                <Tooltip title={<div>Balance response diversity. A value between 0 and 1 dictates nucleus
+                    sampling, <br/> where the model considers tokens within the top p probability mass.<br/> For
+                    instance, 0.1 focuses on the top 10% probability tokens.<br/> Consider adjusting top-p or
+                    temperature, but not both. (Default: 1)</div>}
+                         size="sm" placement="top" sx={{whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                    <IconButton size="sm" sx={{borderRadius: 40}}>
+                        <InfoOutlinedIcon/>
+                    </IconButton>
+                </Tooltip>
+            </Box>
             <Slider
-                value={topG}
-                onChange={(event, value) => setTopG(value)}
+                value={topP}
+                onChange={(event, value) => setTopP(value)}
                 size="sm"
                 variant="solid"
-                defaultValue={topG}
+                defaultValue={topP}
                 step={0.05}
                 min={0}
                 max={1}
