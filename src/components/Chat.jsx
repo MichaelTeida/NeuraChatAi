@@ -1,13 +1,13 @@
-import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar, Snackbar} from "@mui/joy";
+import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
 import {sendMessage} from "../lib/OpenAi.jsx";
 import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
 import CopyToClipboardBtn from "../components/CopyToClipboardBtn.jsx"
-import InfoIcon from "@mui/icons-material/Info";
 import dayjs from "dayjs";
 import calendar from 'dayjs/plugin/calendar';
+import {SnackBar} from "./SnackBar.jsx";
 
 function Chat() {
     dayjs.extend(calendar);
@@ -47,14 +47,10 @@ function Chat() {
         })
     }
 
+    const [messageSnackbar, setMessageSnackbar] = useState(null);
 
-    const [openSnackbar, setOpenSnackbar] = useState(false)
-
-    const handleOpenSnackbar = async () => {
-        await setOpenSnackbar(true)
-    }
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false)
+    const handleSnackbarMessage = (message) => {
+        setMessageSnackbar(message)
     }
 
     return (
@@ -69,8 +65,10 @@ function Chat() {
                 {messages.map((el, index) => {
                     return (
                         <Box key={index} display="flex" alignItems="flex-start">
-                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare} sx={{marginRight: {xs: 0.5, md: 1} , mt: 0.4, pl: 0}}/>}
-                            <Stack display="flex" direction="row" flexDirection={el.isHuman ? 'row-reverse' : 'row'} width="100%"
+                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare}
+                                                         sx={{marginRight: {xs: 0.5, md: 1}, mt: 0.4, pl: 0}}/>}
+                            <Stack display="flex" direction="row" flexDirection={el.isHuman ? 'row-reverse' : 'row'}
+                                   width="100%"
                                    onMouseEnter={() => (el.isHuman ? null : setHoveredIndex(index))}
                                    onMouseLeave={() => (el.isHuman ? null : setHoveredIndex(null))}>
                                 <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: '60%'}}>
@@ -91,7 +89,8 @@ function Chat() {
                                                backgroundColor: el.isHuman ? "primary.500" : "background.body",
                                                "&:hover": {filter: "brightness(97%)"}
                                            }}>
-                                        <Typography component="p" className="selectMessageContent" fontSize={{xs: "sm", sm: "md"}}
+                                        <Typography component="p" className="selectMessageContent"
+                                                    fontSize={{xs: "sm", sm: "md"}}
                                                     sx={{
                                                         color: el.isHuman ? "neutral.50" : "text.primary",
                                                         wordBreak: "break-word"
@@ -100,7 +99,8 @@ function Chat() {
                                         </Typography>
                                     </Sheet>
                                 </Box>
-                                {(el.isHuman || hoveredIndex !== index) ? null : <CopyToClipboardBtn content={el.content} handleOpenSnackbar={handleOpenSnackbar}/>}
+                                {(el.isHuman || hoveredIndex !== index) ? null :
+                                    <CopyToClipboardBtn content={el.content} snackbarMessage={handleSnackbarMessage}/>}
                             </Stack>
                         </Box>
                     )
@@ -108,12 +108,13 @@ function Chat() {
                 <Box ref={messagesEndRef}/>
             </Card>
             <Card sx={{backgroundColor: 'background.level'}}>
-                {/*<form onSubmit={handleSend}>*/}
                 <form onSubmit={(event) => {
                     event.preventDefault()
-                    // if(event.currentTarget.elements.text.value.length < 2) {
-                    // }
+                    // if (event.currentTarget.elements.text.value.length > 3) {
+                    //     handleOpenSnackbar()
+                    // } else {
                     handleSend()
+                    // }
                 }}>
                     <FormControl required sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
                         <JoyInput
@@ -130,10 +131,9 @@ function Chat() {
                     </FormControl>
                 </form>
             </Card>
-            <Snackbar open={openSnackbar} onClose={handleCloseSnackbar} autoHideDuration={1500} anchorOrigin={{ vertical: 'top', horizontal: 'center' }}>
-                <InfoIcon/> Text copied to clipboard
-            </Snackbar>
+            <SnackBar message={messageSnackbar} closeSnackBar={setMessageSnackbar}/>
         </Stack>
     )
 }
+
 export default Chat

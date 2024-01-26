@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import {IconButton} from '@mui/joy'
 
-const CopyToClipboardBtn = ({content, handleOpenSnackbar}) => {
+const CopyToClipboardBtn = ({content, snackbarMessage}) => {
 
     const handleClick = () => {
-        handleOpenSnackbar()
+        snackbarMessage("Content copied to clipboard")
         return navigator.clipboard.writeText(content)
     }
 
@@ -16,7 +16,7 @@ const CopyToClipboardBtn = ({content, handleOpenSnackbar}) => {
 
 CopyToClipboardBtn.propTypes = {
     content: PropTypes.string,
-    handleOpenSnackbar: PropTypes.func
+    snackbarMessage: PropTypes.func
 };
 
 export default CopyToClipboardBtn
