@@ -47,7 +47,7 @@ function Chat() {
         })
     }
 
-    const [messageSnackbar, setMessageSnackbar] = useState(null);
+    const [messageSnackbar, setMessageSnackbar] = useState("");
 
     const handleSnackbarMessage = (message) => {
         setMessageSnackbar(message)
@@ -110,11 +110,11 @@ function Chat() {
             <Card sx={{backgroundColor: 'background.level'}}>
                 <form onSubmit={(event) => {
                     event.preventDefault()
-                    // if (event.currentTarget.elements.text.value.length > 3) {
-                    //     handleOpenSnackbar()
-                    // } else {
+                    if (event.currentTarget.elements.text.value.length > 3000) {
+                        setMessageSnackbar("Warning - Minimum character count: 2")
+                    } else {
                     handleSend()
-                    // }
+                    }
                 }}>
                     <FormControl required sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
                         <JoyInput

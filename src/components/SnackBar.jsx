@@ -10,8 +10,9 @@ export function SnackBar({message, closeSnackBar}) {
         if (message) {
             setOpenSnackbar(true)
         }
-        if (message.includes("")) {
-
+        if (message.includes("Warning")) {
+            setVariant('outlined')
+            setColor('danger')
         }
     }, [message])
 
@@ -29,7 +30,7 @@ export function SnackBar({message, closeSnackBar}) {
                           return
                       }
                       setOpenSnackbar(false);
-                      closeSnackBar(null)
+                      closeSnackBar("")
                   }}
                   autoHideDuration={1500} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
             <InfoIcon/> {message}
