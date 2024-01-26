@@ -20,6 +20,7 @@ function Chat() {
         timestamp: dayjs().calendar().toString(),
     }])
     const [hoveredIndex, setHoveredIndex] = useState(null);
+    const [formDisabled, setFormDisabled] = useState(false);
 
     const messagesEndRef = useRef(null);
 
@@ -113,7 +114,11 @@ function Chat() {
                     if (event.currentTarget.elements.text.value.length > 3000) {
                         setMessageSnackbar("Warning - Minimum character count: 2")
                     } else {
-                    handleSend()
+                        handleSend()
+                        setFormDisabled(true)
+                        setTimeout(() => {
+                            setFormDisabled(false)
+                        }, 2000)
                     }
                 }}>
                     <FormControl required sx={{display: "flex", flexDirection: {xs: "column", sm: "row"}, gap: 2}}>
@@ -127,7 +132,7 @@ function Chat() {
                                 setInput(e.target.value)
                             }}
                         />
-                        <Button type="submit"><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
+                        <Button id="sendBtn" disabled={formDisabled} type="submit"><ArrowUpwardIcon sx={{mx: "3px"}}/>Send</Button>
                     </FormControl>
                 </form>
             </Card>
