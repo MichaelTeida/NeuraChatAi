@@ -51,7 +51,7 @@ const Sidebar = () => {
             </Select>
         </Box>
 
-        <Box sx={{my: 1}}>
+        <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography component="div" level="title-sm">Temperature: <Chip variant="soft">{temperature}</Chip></Typography>
                 <Tooltip title={<div>Control the randomness of AI responses. Higher values (e.g., 0.8) make output
@@ -80,7 +80,7 @@ const Sidebar = () => {
             />
         </Box>
 
-        <Box sx={{my: 1}}>
+        <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography component="div" level="title-sm">Frequency Penalty: <Chip variant="soft">{frequencyPenalty}</Chip></Typography>
                 <Tooltip title={<div>Influence tendency to introduce new topics.<br/> Positive values (0 to 2.0)
@@ -109,7 +109,7 @@ const Sidebar = () => {
             />
         </Box>
 
-        <Box sx={{my: 1}}>
+        <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography component="div" level="title-sm">Max tokens: <Chip variant="soft">{maxTokens}</Chip></Typography>
                 <Tooltip title={<div>Limit the total tokens generated in chat completion.<br/> The sum of input and
@@ -138,7 +138,7 @@ const Sidebar = () => {
             />
         </Box>
 
-        <Box sx={{my: 1}}>
+        <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
                 <Typography component="div" level="title-sm">Top_p: <Chip variant="soft">{topP}</Chip></Typography>
                 <Tooltip title={<div>Balance response diversity. A value between 0 and 1 dictates nucleus
