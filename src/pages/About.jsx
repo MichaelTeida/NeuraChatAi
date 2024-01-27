@@ -1,46 +1,69 @@
-import {Typography, Box, Container, List, ListItem, ListItemDecorator} from "@mui/joy";
-import logoNeuraChatAi from "../assets/logo NeuraChatAi.png"
+import {Typography, Box, Container, List, ListItem, ListItemDecorator, AspectRatio} from "@mui/joy";
 import robotImg from "../assets/Robot woman graphics.webp"
+import poweredbyopenaibadgeoutlinedondark from "../assets/powered-by-openai-badge-outlined-on-dark.svg";
+import poweredbyopenaibadgeoutlinedonlight from "../assets/powered-by-openai-badge-outlined-on-light.svg";
+import {useColorScheme} from "@mui/joy";
+import {useEffect, useState} from "react";
+import BackgroundAnimation from "../components/BackgroundAnimation.jsx";
 
 export function About() {
+    const {mode} = useColorScheme();
+    const [openAiBadge, setOpenAiBadge] = useState(mode)
+
+    useEffect(() => {
+        mode === 'light' ? setOpenAiBadge(poweredbyopenaibadgeoutlinedonlight) : setOpenAiBadge(poweredbyopenaibadgeoutlinedondark)
+    },[mode])
+
     return (
-        <Container sx={{display: "flex", flexDirection: {sx: "column", md: "row"}, justifyContent: "space-between", alignItems: "center", minHeight: 'calc(100dvh - var(--Header-height))'}}>
-            <Box sx={{flex: 5, display: "flex", gap: 2, flexWrap: "wrap"}}>
+        <Container sx={{display: "flex", flexDirection: {xs: "column", md: "row"}, justifyContent: "space-between", alignItems: "center", minHeight: 'calc(100dvh - var(--Header-height))'}}>
+            <Box sx={{zIndex: "2",flex: 5, display: "flex", flexDirection: {xs: "column", md: "row"}, gap: 2, flexWrap: "wrap"}}>
                 <Typography component="h1" level="h1">
-                    Lorem ipsum dolor sit amet.
+                    Welcome to NeuraChat
                 </Typography>
                 <Typography>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium asperiores dolore et fuga id
-                    iusto modi molestias nobis odit quae.
+                    NeuraChat is your ultimate AI companion, revolutionizing the way you interact online. With cutting-edge technology and intuitive design, NeuraChat offers a seamless chat experience unlike any other. Explore the possibilities with NeuraChat today!
                 </Typography>
-                <Box sx={{display: 'flex', flexDirection: {sx: "column", md: "row"}}}>
+                <Box sx={{display: 'flex', flexDirection: {xs: "column", md: "row"}}}>
                     <List aria-labelledby="advantages">
                         <ListItem>
-                            <ListItemDecorator>🧅</ListItemDecorator> Lorem ipsum dolor.
+                            <ListItemDecorator>🧅</ListItemDecorator>Limitless Possibilities
                         </ListItem>
                         <ListItem>
-                            <ListItemDecorator>🧅</ListItemDecorator> Lorem ipsum dolor.
+                            <ListItemDecorator>🧅</ListItemDecorator>AI-powered conversations.
                         </ListItem>
                     </List>
                     <List aria-labelledby="advantages">
                         <ListItem>
-                            <ListItemDecorator>🧅</ListItemDecorator> Lorem ipsum dolor.
+                            <ListItemDecorator>🧅</ListItemDecorator>Intelligent Problem-Solving
                         </ListItem>
                         <ListItem>
-                            <ListItemDecorator>🧅</ListItemDecorator> Lorem ipsum dolor.
+                            <ListItemDecorator>🧅</ListItemDecorator>User-friendly features.
                         </ListItem>
                     </List>
                 </Box>
-                <Typography>Supported by:</Typography>
-                <Box component="img" src={logoNeuraChatAi} alt={"Logo NeuraChatAi"} sx={{
-                    maxWidth: {xs: 100, md: 100},
-                }}/>
+                <Box maxWidth={350} component="img" src={openAiBadge} alt={"Logo NeuraChatAi"}/>
             </Box>
-            <Box sx={{flex: 7}}>
-                <Box component="img" src={robotImg} alt={"Logo NeuraChatAi"} sx={{
-                    maxWidth: {xs: 700, md: 700},
-                }}/>
+            <Box sx={{zIndex: "2", flex: 7}}>
+                <AspectRatio
+                    objectFit="contain"
+                    ratio={1}
+                    variant="plain"
+                    maxHeight={400}
+                    sx={(theme) => ({
+                        minWidth: 400,
+                        alignSelf: 'stretch',
+                        [theme.breakpoints.up(834)]: {
+                            alignSelf: 'initial',
+                            flexGrow: 1,
+                            '--AspectRatio-maxHeight': '800px',
+                            '--AspectRatio-minHeight': '800px',
+                        },
+                    })}
+                >
+                    <Box component="img" src={robotImg} alt={"Logo NeuraChatAi"} />
+                </AspectRatio>
             </Box>
+            <BackgroundAnimation/>
         </Container>
     );
 }
