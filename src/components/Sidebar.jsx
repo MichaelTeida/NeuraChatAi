@@ -1,13 +1,14 @@
-import {Divider, Select, Sheet, Slider, Typography, Option, Box, Chip, Tooltip, IconButton} from "@mui/joy";
+import {Divider, Select, Sheet, Slider, Typography, Option, Box, Chip, Tooltip, IconButton, selectClasses} from "@mui/joy";
 import {useEffect, useState} from "react";
 import {setOpenAiParams} from "../lib/OpenAi.jsx";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 
 const Sidebar = () => {
     const [model, setModel] = useState('gpt-3.5-turbo');
     const [temperature, setTemperature] = useState(0.7);
     const [maxTokens, setMaxTokens] = useState(500);
-    const [frequencyPenalty, setFrequencyPenalty] = useState(0.01);
+    const [frequencyPenalty, setFrequencyPenalty] = useState(0);
     const [topP, setTopP] = useState(1);
 
     useEffect(() => {
@@ -36,7 +37,14 @@ const Sidebar = () => {
                     </IconButton>
                 </Tooltip>
             </Box>
-            <Select defaultValue={model} size="sm" onChange={(event, value) => setModel(value)} sx={{}}>
+            <Select defaultValue={model} size="sm" onChange={(event, value) => setModel(value)} indicator={<KeyboardArrowDown />}
+                    sx={{
+                            [`& .${selectClasses.indicator}`]: {
+                                transition: '0.2s',
+                                [`&.${selectClasses.expanded}`]: {
+                                    transform: 'rotate(-180deg)',
+                                },
+                            }}}>
                 <Option value="gpt-3.5-turbo">gpt-3.5-turbo</Option>
                 <Option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</Option>
                 <Option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</Option>
