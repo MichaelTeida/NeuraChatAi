@@ -1,4 +1,17 @@
-import {Divider, Select, Sheet, Slider, Typography, Option, Box, Chip, Tooltip, IconButton, selectClasses} from "@mui/joy";
+import {
+    Divider,
+    Select,
+    Sheet,
+    Slider,
+    Typography,
+    Option,
+    Box,
+    Chip,
+    Tooltip,
+    IconButton,
+    selectClasses,
+    Button
+} from "@mui/joy";
 import {useEffect, useState, useMemo} from "react";
 import {setOpenAiParams} from "../lib/OpenAi.jsx";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
@@ -39,6 +52,14 @@ const Sidebar = () => {
         }, 400);
         return () => clearTimeout(timeout);
     }, [params])
+
+    const handleReset = () => {
+        setModel('gpt-3.5-turbo')
+        setTemperature(0.7)
+        setMaxTokens(500)
+        setModel(0)
+        setModel(1)
+    }
 
     return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
         <Divider sx={{mb: 2}}><Chip variant="outlined">Settings</Chip></Divider>
@@ -190,6 +211,10 @@ const Sidebar = () => {
                     "--Slider-thumbSize": "20px"
                 }}
             />
+        </Box>
+
+        <Box sx={{my: 2}}>
+            <Button onClick={() => {handleReset()}} color="primary" variant="soft" sx={{width: "100%"}}> Reset settings </Button>
         </Box>
     </Sheet>
 }
