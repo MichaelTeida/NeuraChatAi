@@ -21,8 +21,8 @@ const Sidebar = () => {
     // Początkowe wartości parametrów
     const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo');
     const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7);
-    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 500);
     const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0);
+    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 500);
     const [topP, setTopP] = useState(parseFloat(localStorage.getItem('topP')) || 1);
 
 
@@ -30,8 +30,8 @@ const Sidebar = () => {
         const saveParamsToLocalStorage = () => {
             localStorage.setItem('model', model);
             localStorage.setItem('temperature', temperature.toString());
-            localStorage.setItem('maxTokens', maxTokens.toString());
             localStorage.setItem('frequencyPenalty', frequencyPenalty.toString());
+            localStorage.setItem('maxTokens', maxTokens.toString());
             localStorage.setItem('topP', topP.toString());
         };
 
@@ -54,11 +54,11 @@ const Sidebar = () => {
     }, [params])
 
     const handleReset = () => {
-        setModel('gpt-3.5-turbo')
+        setModel("gpt-3.5-turbo")
         setTemperature(0.7)
         setMaxTokens(500)
-        setModel(0)
-        setModel(1)
+        setFrequencyPenalty(0)
+        setTopP(1)
     }
 
     return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
@@ -74,7 +74,7 @@ const Sidebar = () => {
                     </IconButton>
                 </Tooltip>
             </Box>
-            <Select defaultValue={model} size="sm" onChange={(event, value) => setModel(value)} indicator={<KeyboardArrowDown />}
+            <Select value={model} defaultValue={model} size="sm" onChange={(event, value) => setModel(value)} indicator={<KeyboardArrowDown />}
                     sx={{
                             [`& .${selectClasses.indicator}`]: {
                                 transition: '0.2s',
