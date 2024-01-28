@@ -15,7 +15,6 @@ let openAiParams = {
 
 export function setOpenAiParams(newParams) {
     openAiParams = {...openAiParams, ...newParams};
-    console.log(openAiParams)
 }
 
 export async function sendMessage(message) {
