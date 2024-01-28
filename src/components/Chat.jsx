@@ -61,9 +61,11 @@ function Chat() {
                 minHeight: 0,
                 overflowY: 'scroll',
                 backgroundColor: 'background.level1',
-                pl: {xs: 1, md: 2}
+                pl: {xs: 1, md: 2},
+                justifyContent: "space-between"
             }}>
-                {messages.map((el, index) => {
+                <Stack spacing={1.5}>
+                    {messages.map((el, index) => {
                     return (
                         <Box key={index} display="flex" alignItems="flex-start">
                             {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare}
@@ -106,7 +108,13 @@ function Chat() {
                         </Box>
                     )
                 })}
-                <Box ref={messagesEndRef}/>
+                </Stack>
+                <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
+                    <Button variant="solid">Test</Button>
+                    <Button variant="solid">Test</Button>
+                    <Button variant="solid">Test</Button>
+                </Stack>
+                <Box sx={{position: "absolute", bottom: 0, backgroundColor: "red"}} ref={messagesEndRef}/>
             </Card>
             <Card sx={{backgroundColor: 'background.level'}}>
                 <form onSubmit={(event) => {
