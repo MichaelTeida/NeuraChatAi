@@ -52,14 +52,25 @@ function Chat() {
         })
     }
 
+    const handleTip = (tip) => {
+        setMessages(prevMessages => [
+            ...prevMessages,
+            {
+                isHuman: true,
+                content: tip,
+                timestamp: dayjs().calendar().toString(),
+            }
+        ]);
+        setInput("")
+        sendMessage(tip).then((response) => {
+            setOutput(response)
+        })
+    }
+
     const [messageSnackbar, setMessageSnackbar] = useState("");
 
     const handleSnackbarMessage = (message) => {
         setMessageSnackbar(message)
-    }
-
-    const handleTip = (tip) => {
-        setInput(tip)
     }
 
     return (
