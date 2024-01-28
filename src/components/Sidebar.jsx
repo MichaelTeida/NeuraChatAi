@@ -5,11 +5,25 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 
 const Sidebar = () => {
-    const [model, setModel] = useState('gpt-3.5-turbo');
-    const [temperature, setTemperature] = useState(0.7);
-    const [maxTokens, setMaxTokens] = useState(500);
-    const [frequencyPenalty, setFrequencyPenalty] = useState(0);
-    const [topP, setTopP] = useState(1);
+    // Początkowe wartości parametrów
+    const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo');
+    const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7);
+    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 500);
+    const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0);
+    const [topP, setTopP] = useState(parseFloat(localStorage.getItem('topP')) || 1);
+
+
+    useEffect(() => {
+        const saveParamsToLocalStorage = () => {
+            localStorage.setItem('model', model);
+            localStorage.setItem('temperature', temperature.toString());
+            localStorage.setItem('maxTokens', maxTokens.toString());
+            localStorage.setItem('frequencyPenalty', frequencyPenalty.toString());
+            localStorage.setItem('topP', topP.toString());
+        };
+
+        saveParamsToLocalStorage();
+    }, [model, temperature, maxTokens, frequencyPenalty, topP]);
 
     const params = useMemo(() => ({
         model: model,
