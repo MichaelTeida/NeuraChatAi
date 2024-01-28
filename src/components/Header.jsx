@@ -79,6 +79,40 @@ function Header() {
                    alignItems="center"
                    spacing={1}
                    sx={{display: {xs: "none", md: "flex"}}}>
+                <Input
+                    size="sm"
+                    placeholder="Search"
+                    variant="plain"
+                    endDecorator={<Search/>}
+                    slotProps={{
+                        input: {
+                            'aria-label': 'Search anything',
+                        },
+                    }}
+                    sx={{
+                        m: 3,
+                        mb: 2,
+                        borderRadius: 0,
+                        borderBottom: '2px solid',
+                        borderColor: 'neutral.outlinedBorder',
+                        '&:hover': {
+                            borderColor: 'neutral.outlinedHoverBorder',
+                        },
+                        '&::before': {
+                            border: '1px solid var(--Input-focusedHighlight)',
+                            transform: 'scaleX(0)',
+                            left: 0,
+                            right: 0,
+                            bottom: '-2px',
+                            top: 'unset',
+                            transition: 'transform .15s cubic-bezier(0.1,0.9,0.2,1)',
+                            borderRadius: 0,
+                        },
+                        '&:focus-within::before': {
+                            transform: 'scaleX(1)',
+                        },
+                    }}
+                />
             </Stack>
             <ModeToggle/>
             <IconButton variant="outlined" color="neutral" onClick={openMenu} sx={{display: {xs: "flex", md: "none"}}}>
@@ -106,6 +140,40 @@ function Header() {
                     </Typography>
                     <ModalClose id="close-icon" sx={{position: 'initial'}}/>
                 </Box>
+                <Input
+                    size="sm"
+                    placeholder="Search"
+                    variant="plain"
+                    endDecorator={<Search/>}
+                    slotProps={{
+                        input: {
+                            'aria-label': 'Search anything',
+                        },
+                    }}
+                    sx={{
+                        m: 3,
+                        mb: 2,
+                        borderRadius: 0,
+                        borderBottom: '2px solid',
+                        borderColor: 'neutral.outlinedBorder',
+                        '&:hover': {
+                            borderColor: 'neutral.outlinedHoverBorder',
+                        },
+                        '&::before': {
+                            border: '1px solid var(--Input-focusedHighlight)',
+                            transform: 'scaleX(0)',
+                            left: 0,
+                            right: 0,
+                            bottom: '-2px',
+                            top: 'unset',
+                            transition: 'transform .15s cubic-bezier(0.1,0.9,0.2,1)',
+                            borderRadius: 0,
+                        },
+                        '&:focus-within::before': {
+                            transform: 'scaleX(1)',
+                        },
+                    }}
+                />
                 <List spacing={2}
                       sx={{display: {xs: "flex", md: "none"}}}>
                     <RouterLink to="/NeuraChatAi/"><ListItemButton
