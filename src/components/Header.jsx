@@ -45,6 +45,7 @@ function Header() {
                    flexGrow: 1,
                    maxWidth: 1,
                    justifyContent: "space-between",
+                   alignItems: "center",
                    height: 'var(--Header-height)',
                    borderBottom: '1px solid', borderColor: 'divider',
                    gap: 2
