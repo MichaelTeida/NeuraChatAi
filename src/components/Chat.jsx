@@ -96,7 +96,8 @@ function Chat() {
                                                     fontSize={{xs: "sm", sm: "md"}}
                                                     sx={{
                                                         color: el.isHuman ? "neutral.50" : "text.primary",
-                                                        wordBreak: "break-word"
+                                                        wordBreak: "break-word",
+                                                        whiteSpace: "pre-wrap"
                                                     }}>
                                             {el.content}
                                         </Typography>
@@ -114,7 +115,7 @@ function Chat() {
                     <Button variant="solid">Test</Button>
                     <Button variant="solid">Test</Button>
                 </Stack>
-                <Box sx={{position: "absolute", bottom: 0, backgroundColor: "red"}} ref={messagesEndRef}/>
+                <Box ref={messagesEndRef}/>
             </Card>
             <Card sx={{backgroundColor: 'background.level'}}>
                 <form onSubmit={(event) => {
