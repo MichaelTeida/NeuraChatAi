@@ -97,7 +97,7 @@ function Chat() {
                 justifyContent: "space-between",
                 gap: 0
             }}>
-                <Stack display="flex" height="100%" spacing={2} >
+                <Stack display="flex" height="100%" >
                     <Stack spacing={1.5} sx={{flex: 1, pb: 2}}>
                         {messages.map((el, index) => {
                             return (
@@ -187,8 +187,8 @@ function Chat() {
                             </Card>
                         </Tooltip>
                     </Stack>}
+                    <Box ref={messagesEndRef}/>
                 </Stack>
-                <Box ref={messagesEndRef}/>
             </Card>
             <Card sx={{backgroundColor: 'background.level'}}>
                 <form onSubmit={(event) => {
