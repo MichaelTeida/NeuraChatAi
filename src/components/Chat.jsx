@@ -1,4 +1,16 @@
-import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar, Tooltip} from "@mui/joy";
+import {
+    Box,
+    Button,
+    Card,
+    FormControl,
+    Input as JoyInput,
+    Sheet,
+    Stack,
+    Typography,
+    Avatar,
+    Tooltip,
+    CardContent, IconButton
+} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
@@ -8,6 +20,7 @@ import CopyToClipboardBtn from "../components/CopyToClipboardBtn.jsx"
 import dayjs from "dayjs";
 import calendar from 'dayjs/plugin/calendar';
 import {SnackBar} from "./SnackBar.jsx";
+import AdsClickIcon from '@mui/icons-material/AdsClick';
 
 function Chat() {
     dayjs.extend(calendar);
@@ -80,12 +93,12 @@ function Chat() {
                 minHeight: 0,
                 overflowY: 'scroll',
                 backgroundColor: 'background.level1',
-                pl: {xs: 1, md: 2},
+                pl: {xs: 2, md: 2},
                 justifyContent: "space-between",
                 gap: 0
             }}>
-                <Stack display="flex" height="100%" spacing={2}>
-                    <Stack spacing={1.5} sx={{flex: 1}}>
+                <Stack display="flex" height="100%" spacing={2} >
+                    <Stack spacing={1.5} sx={{flex: 1, pb: 2}}>
                         {messages.map((el, index) => {
                             return (
                                 <Box key={index} display="flex" alignItems="flex-start">
@@ -137,22 +150,39 @@ function Chat() {
                         <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
                             <Card
                                 onClick={() => handleTip("Brainstorm ideas for a unique and memorable marriage proposal")}>
-                                <Typography level="title-sm">Brainstorm ideas</Typography>
-                                <Typography level="body-sm">for a unique and memorable marriage proposal</Typography>
+                                <CardContent>
+                                    <Stack direction="row" justifyContent="space-between">
+                                        <Typography level="title-sm">Brainstorm ideas</Typography>
+                                        <AdsClickIcon fontSize="lg"/>
+                                    </Stack>
+                                    <Typography level="body-sm">for a unique and memorable marriage
+                                        proposal</Typography>
+                                </CardContent>
                             </Card>
                         </Tooltip>
                         <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
                             <Card
                                 onClick={() => handleTip("Suggest ways to improve productivity while working from home")}>
-                                <Typography level="title-sm">Suggest ways</Typography>
-                                <Typography level="body-sm">to improve productivity while working from home</Typography>
+                                <CardContent>
+                                    <Stack direction="row" justifyContent="space-between">
+                                        <Typography level="title-sm">Suggest ways</Typography>
+                                        <AdsClickIcon fontSize="lg"/>
+                                    </Stack>
+                                    <Typography level="body-sm">to improve productivity while working from
+                                        home</Typography>
+                                </CardContent>
                             </Card>
                         </Tooltip>
                         <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
                             <Card
                                 onClick={() => handleTip("Recommend books for a book club focused on fantasy genres")}>
-                                <Typography level="title-sm">Recommend books</Typography>
-                                <Typography level="body-sm">for a book club focused on fantasy genres</Typography>
+                                <CardContent>
+                                    <Stack direction="row" justifyContent="space-between">
+                                        <Typography level="title-sm">Recommend books</Typography>
+                                        <AdsClickIcon fontSize="lg"/>
+                                    </Stack>
+                                    <Typography level="body-sm">for a book club focused on fantasy genres</Typography>
+                                </CardContent>
                             </Card>
                         </Tooltip>
                     </Stack>}

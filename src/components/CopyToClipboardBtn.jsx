@@ -9,7 +9,7 @@ const CopyToClipboardBtn = ({content, snackbarMessage}) => {
         return navigator.clipboard.writeText(content)
     }
 
-    return <IconButton sx={{m: 1.5, height: "10px", borderRadius: 20}} onClick={handleClick}>
+    return <IconButton sx={{m: 1.5, mt: 2, height: "10px", borderRadius: 20}} onClick={handleClick}>
         <ContentCopyIcon/>
     </IconButton>
 }
