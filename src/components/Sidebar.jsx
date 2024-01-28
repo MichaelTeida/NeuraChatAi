@@ -1,5 +1,5 @@
 import {Divider, Select, Sheet, Slider, Typography, Option, Box, Chip, Tooltip, IconButton, selectClasses} from "@mui/joy";
-import {useEffect, useState} from "react";
+import {useEffect, useState, useMemo} from "react";
 import {setOpenAiParams} from "../lib/OpenAi.jsx";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
@@ -11,18 +11,20 @@ const Sidebar = () => {
     const [frequencyPenalty, setFrequencyPenalty] = useState(0);
     const [topP, setTopP] = useState(1);
 
+    const params = useMemo(() => ({
+        model: model,
+        temperature: temperature,
+        max_tokens: maxTokens,
+        frequency_penalty: frequencyPenalty,
+        top_p: topP,
+    }), [model, temperature, maxTokens, frequencyPenalty, topP]);
+
     useEffect(() => {
         const timeout = setTimeout(() => {
-            setOpenAiParams({
-                model: model,
-                temperature: temperature,
-                max_tokens: maxTokens,
-                frequency_penalty: frequencyPenalty,
-                top_p: topP,
-            });
+            setOpenAiParams(params);
         }, 400);
         return () => clearTimeout(timeout);
-    }, [model, temperature, maxTokens, frequencyPenalty, topP])
+    }, [params])
 
     return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
         <Divider sx={{mb: 2}}><Chip variant="outlined">Settings</Chip></Divider>
