@@ -21,6 +21,7 @@ function Chat() {
     }])
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [formDisabled, setFormDisabled] = useState(false);
+    const [tooltipVisible, setTooltipVisible] = useState(true);
 
     const messagesEndRef = useRef(null);
 
@@ -35,6 +36,9 @@ function Chat() {
 
     useEffect(() => {
         messagesEndRef.current.scrollIntoView({behavior: "smooth"})
+        if (messages.length >= 2) {
+            setTooltipVisible(false)
+        }
     }, [messages])
 
     const handleSend = () => {
@@ -52,6 +56,10 @@ function Chat() {
 
     const handleSnackbarMessage = (message) => {
         setMessageSnackbar(message)
+    }
+
+    const handleTip = (tip) => {
+        setInput(tip)
     }
 
     return (
@@ -114,26 +122,29 @@ function Chat() {
                             )
                         })}
                     </Stack>
-                    <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
-                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1}}>
-                            <Card onClick={() => console.log("1")}>
+                    {tooltipVisible && <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
+                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
+                            <Card
+                                onClick={() => handleTip("Brainstorm ideas for a unique and memorable marriage proposal")}>
                                 <Typography level="title-sm">Brainstorm ideas</Typography>
                                 <Typography level="body-sm">for a unique and memorable marriage proposal</Typography>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1}}>
-                            <Card onClick={() => console.log("2")}>
-                                <Typography level="title-sm">Test</Typography>
-                                <Typography level="body-sm">Test</Typography>
+                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
+                            <Card
+                                onClick={() => handleTip("Suggest ways to improve productivity while working from home")}>
+                                <Typography level="title-sm">Suggest ways</Typography>
+                                <Typography level="body-sm">to improve productivity while working from home</Typography>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1}}>
-                            <Card onClick={() => console.log("3")}>
-                                <Typography level="title-sm">Test</Typography>
-                                <Typography level="body-sm">Test</Typography>
+                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
+                            <Card
+                                onClick={() => handleTip("Recommend books for a book club focused on fantasy genres")}>
+                                <Typography level="title-sm">Recommend books</Typography>
+                                <Typography level="body-sm">for a book club focused on fantasy genres</Typography>
                             </Card>
                         </Tooltip>
-                    </Stack>
+                    </Stack>}
                 </Stack>
                 <Box ref={messagesEndRef}/>
             </Card>
