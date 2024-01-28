@@ -1,4 +1,4 @@
-import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar} from "@mui/joy";
+import {Box, Button, Card, FormControl, Input as JoyInput, Sheet, Stack, Typography, Avatar, Tooltip} from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
@@ -62,58 +62,78 @@ function Chat() {
                 overflowY: 'scroll',
                 backgroundColor: 'background.level1',
                 pl: {xs: 1, md: 2},
-                justifyContent: "space-between"
+                justifyContent: "space-between",
+                gap: 0
             }}>
-                <Stack spacing={1.5}>
-                    {messages.map((el, index) => {
-                    return (
-                        <Box key={index} display="flex" alignItems="flex-start">
-                            {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare}
-                                                         sx={{marginRight: {xs: 0.5, md: 1}, mt: 0.4, pl: 0}}/>}
-                            <Stack display="flex" direction="row" flexDirection={el.isHuman ? 'row-reverse' : 'row'}
-                                   width="100%"
-                                   onMouseEnter={() => (el.isHuman ? null : setHoveredIndex(index))}
-                                   onMouseLeave={() => (el.isHuman ? null : setHoveredIndex(null))}>
-                                <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: '60%'}}>
-                                    <Stack direction="row" justifyContent="space-between" spacing={2}>
-                                        <Typography level="body-xs">
-                                            {el.isHuman ? "You" : "NeuraChat"}
-                                        </Typography>
-                                        <Typography level="body-xs">
-                                            {el.timestamp}
-                                        </Typography>
+                <Stack display="flex" height="100%" spacing={2}>
+                    <Stack spacing={1.5} sx={{flex: 1}}>
+                        {messages.map((el, index) => {
+                            return (
+                                <Box key={index} display="flex" alignItems="flex-start">
+                                    {el.isHuman ? null : <Avatar alt="NeuraChat Avatar" src={NeuraChatLogoSquare}
+                                                                 sx={{marginRight: {xs: 0.5, md: 1}, mt: 0.4, pl: 0}}/>}
+                                    <Stack display="flex" direction="row"
+                                           flexDirection={el.isHuman ? 'row-reverse' : 'row'}
+                                           width="100%"
+                                           onMouseEnter={() => (el.isHuman ? null : setHoveredIndex(index))}
+                                           onMouseLeave={() => (el.isHuman ? null : setHoveredIndex(null))}>
+                                        <Box sx={{width: {xs: 'auto', sm: "60%"}, minWidth: '60%'}}>
+                                            <Stack direction="row" justifyContent="space-between" spacing={2}>
+                                                <Typography level="body-xs">
+                                                    {el.isHuman ? "You" : "NeuraChat"}
+                                                </Typography>
+                                                <Typography level="body-xs">
+                                                    {el.timestamp}
+                                                </Typography>
+                                            </Stack>
+                                            <Sheet variant="outlined"
+                                                   sx={{
+                                                       p: 1,
+                                                       borderRadius: "lg",
+                                                       borderTopRightRadius: el.isHuman ? 0 : "lg",
+                                                       borderTopLeftRadius: el.isHuman ? "lg" : 0,
+                                                       backgroundColor: el.isHuman ? "primary.500" : "background.body",
+                                                       "&:hover": {filter: "brightness(97%)"}
+                                                   }}>
+                                                <Typography component="p" className="selectMessageContent"
+                                                            fontSize={{xs: "sm", sm: "md"}}
+                                                            sx={{
+                                                                color: el.isHuman ? "neutral.50" : "text.primary",
+                                                                wordBreak: "break-word",
+                                                                whiteSpace: "pre-wrap"
+                                                            }}>
+                                                    {el.content}
+                                                </Typography>
+                                            </Sheet>
+                                        </Box>
+                                        {(el.isHuman || hoveredIndex !== index) ? null :
+                                            <CopyToClipboardBtn content={el.content}
+                                                                snackbarMessage={handleSnackbarMessage}/>}
                                     </Stack>
-                                    <Sheet variant="outlined"
-                                           sx={{
-                                               p: 1,
-                                               borderRadius: "lg",
-                                               borderTopRightRadius: el.isHuman ? 0 : "lg",
-                                               borderTopLeftRadius: el.isHuman ? "lg" : 0,
-                                               backgroundColor: el.isHuman ? "primary.500" : "background.body",
-                                               "&:hover": {filter: "brightness(97%)"}
-                                           }}>
-                                        <Typography component="p" className="selectMessageContent"
-                                                    fontSize={{xs: "sm", sm: "md"}}
-                                                    sx={{
-                                                        color: el.isHuman ? "neutral.50" : "text.primary",
-                                                        wordBreak: "break-word",
-                                                        whiteSpace: "pre-wrap"
-                                                    }}>
-                                            {el.content}
-                                        </Typography>
-                                    </Sheet>
                                 </Box>
-                                {(el.isHuman || hoveredIndex !== index) ? null :
-                                    <CopyToClipboardBtn content={el.content} snackbarMessage={handleSnackbarMessage}/>}
-                            </Stack>
-                        </Box>
-                    )
-                })}
-                </Stack>
-                <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
-                    <Button variant="solid">Test</Button>
-                    <Button variant="solid">Test</Button>
-                    <Button variant="solid">Test</Button>
+                            )
+                        })}
+                    </Stack>
+                    <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
+                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1}}>
+                            <Card onClick={() => console.log("1")}>
+                                <Typography level="title-sm">Brainstorm ideas</Typography>
+                                <Typography level="body-sm">for a unique and memorable marriage proposal</Typography>
+                            </Card>
+                        </Tooltip>
+                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1}}>
+                            <Card onClick={() => console.log("2")}>
+                                <Typography level="title-sm">Test</Typography>
+                                <Typography level="body-sm">Test</Typography>
+                            </Card>
+                        </Tooltip>
+                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1}}>
+                            <Card onClick={() => console.log("3")}>
+                                <Typography level="title-sm">Test</Typography>
+                                <Typography level="body-sm">Test</Typography>
+                            </Card>
+                        </Tooltip>
+                    </Stack>
                 </Stack>
                 <Box ref={messagesEndRef}/>
             </Card>
