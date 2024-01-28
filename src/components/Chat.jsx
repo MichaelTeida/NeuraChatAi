@@ -9,7 +9,7 @@ import {
     Typography,
     Avatar,
     Tooltip,
-    CardContent, IconButton
+    CardContent
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
@@ -120,7 +120,8 @@ function Chat() {
                                             </Stack>
                                             <Sheet variant="outlined"
                                                    sx={{
-                                                       p: 1,
+                                                       p: 1.2,
+                                                       px: {md: 1.5},
                                                        borderRadius: "lg",
                                                        borderTopRightRadius: el.isHuman ? 0 : "lg",
                                                        borderTopLeftRadius: el.isHuman ? "lg" : 0,
@@ -147,8 +148,8 @@ function Chat() {
                         })}
                     </Stack>
                     {tooltipVisible && <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
-                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
-                            <Card
+                        <Tooltip title="Click to get answer" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}>
+                            <Card color="primary" variant="outlined"
                                 onClick={() => handleTip("Brainstorm ideas for a unique and memorable marriage proposal")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
@@ -160,8 +161,8 @@ function Chat() {
                                 </CardContent>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
-                            <Card
+                        <Tooltip title="Click to get answer" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}>
+                            <Card color="primary" variant="outlined"
                                 onClick={() => handleTip("Suggest ways to improve productivity while working from home")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
@@ -173,8 +174,8 @@ function Chat() {
                                 </CardContent>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Test" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer"}}}>
-                            <Card
+                        <Tooltip title="Click to get answer" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}>
+                            <Card color="primary" variant="outlined"
                                 onClick={() => handleTip("Recommend books for a book club focused on fantasy genres")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
