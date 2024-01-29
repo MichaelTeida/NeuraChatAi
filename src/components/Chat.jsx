@@ -60,7 +60,9 @@ function Chat() {
             {isHuman: true, content: input, timestamp: dayjs().calendar().toString(),}
         ]);
         setInput("")
-        sendMessage(input).then((response) => {
+        sendMessage(input, (errorMessage) => {
+            setMessageSnackbar(errorMessage);
+        }).then((response) => {
             setOutput(response)
         })
     }
@@ -194,7 +196,7 @@ function Chat() {
                 <form onSubmit={(event) => {
                     event.preventDefault()
                     if (event.currentTarget.elements.text.value.length > 3000) {
-                        setMessageSnackbar("Warning - Maximum character count: 3000")
+                        setMessageSnackbar("Warning: maximum character count: 3000")
                     } else {
                         handleSend()
                         setFormDisabled(true)

@@ -6,6 +6,10 @@ import PropTypes from 'prop-types';
 export function SnackBar({message, closeSnackBar}) {
     const [openSnackbar, setOpenSnackbar] = useState(false);
 
+    const [variant, setVariant] = useState('outlined');
+    const [color, setColor] = useState('neutral');
+    const [autoHideDuration, setAutoHideDuration] = useState(1500);
+
     useEffect(() => {
         if (message) {
             setOpenSnackbar(true)
@@ -13,13 +17,14 @@ export function SnackBar({message, closeSnackBar}) {
         if (message.includes("Warning")) {
             setVariant('outlined')
             setColor('danger')
+            setAutoHideDuration(2000)
+        }
+        if (message.includes("Error:")) {
+            setVariant('outlined')
+            setColor('danger')
+            setAutoHideDuration(3000)
         }
     }, [message])
-
-    const [variant, setVariant] = useState('outlined');
-    const [color, setColor] = useState('neutral');
-
-
 
     return (
         <Snackbar open={openSnackbar}
@@ -32,7 +37,7 @@ export function SnackBar({message, closeSnackBar}) {
                       setOpenSnackbar(false);
                       closeSnackBar("")
                   }}
-                  autoHideDuration={1500} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
+                  autoHideDuration={autoHideDuration} anchorOrigin={{vertical: 'top', horizontal: 'center'}}>
             <InfoIcon/> {message}
         </Snackbar>
     )

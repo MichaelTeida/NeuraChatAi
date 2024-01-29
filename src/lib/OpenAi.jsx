@@ -17,7 +17,8 @@ export function setOpenAiParams(newParams) {
     openAiParams = {...openAiParams, ...newParams};
 }
 
-export async function sendMessage(message) {
+export async function sendMessage(message, setError) {
+
     try {
         const chatCompletion = await openai.chat.completions.create({
             messages: [{
@@ -29,13 +30,13 @@ export async function sendMessage(message) {
         return chatCompletion.choices[0].message.content;
     } catch (error) {
         if (error.status === 429) {
-            console.error("Error: " + "Rate limit reached for requests")
+            setError("Error: " + "Rate limit reached for requests")
         } else if (error.status === 500) {
-            console.error("Error: " + "The server had an error while processing your request")
+            setError("Error: " + "The server had an error while processing your request")
         } else if (error.status === 503) {
-            console.error("Error: " + "The engine is currently overloaded, please try again later")
+            setError("Error: " + "The engine is currently overloaded, please try again later")
         } else if (error.status === 401) {
-            console.error("Error: " + "Invalid Authentication")
+            setError("Error: " + "Invalid Authentication")
         }
         throw error
     }
