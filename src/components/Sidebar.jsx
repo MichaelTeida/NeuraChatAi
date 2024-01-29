@@ -16,15 +16,18 @@ import {useEffect, useState, useMemo} from "react";
 import {setOpenAiParams} from "../lib/OpenAi.jsx";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
+import {SnackBar} from "./SnackBar.jsx";
 
 const Sidebar = () => {
     // Początkowe wartości parametrów
-    const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo');
-    const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7);
-    const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0);
-    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 500);
-    const [topP, setTopP] = useState(parseFloat(localStorage.getItem('topP')) || 1);
+    const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo')
+    const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7)
+    const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0)
+    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 500)
+    const [topP, setTopP] = useState(parseFloat(localStorage.getItem('topP')) || 1)
 
+    const [messageSnackbar, setMessageSnackbar] = useState("")
+    const [initialLoad, setInitialLoad] = useState(false);
 
     useEffect(() => {
         const saveParamsToLocalStorage = () => {
@@ -46,11 +49,16 @@ const Sidebar = () => {
         top_p: topP,
     }), [model, temperature, maxTokens, frequencyPenalty, topP]);
 
-    useEffect(() => {
-        const timeout = setTimeout(() => {
-            setOpenAiParams(params);
-        }, 400);
-        return () => clearTimeout(timeout);
+    useEffect( () => {
+        if (initialLoad) {
+            const timeout = setTimeout(() => {
+                setOpenAiParams(params);
+                setMessageSnackbar("Settings changed");
+            }, 400);
+            return () => clearTimeout(timeout);
+        } else {
+            setInitialLoad(true)
+        }
     }, [params])
 
     const handleReset = () => {
@@ -59,6 +67,8 @@ const Sidebar = () => {
         setMaxTokens(500)
         setFrequencyPenalty(0)
         setTopP(1)
+        setMessageSnackbar("Settings reset");
+        setInitialLoad(false);
     }
 
     return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
@@ -216,6 +226,7 @@ const Sidebar = () => {
         <Box sx={{my: 2}}>
             <Button onClick={() => {handleReset()}} color="primary" variant="soft" sx={{width: "100%"}}> Reset settings </Button>
         </Box>
+        <SnackBar message={messageSnackbar} closeSnackBar={setMessageSnackbar}/>
     </Sheet>
 }
 

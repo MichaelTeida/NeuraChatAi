@@ -148,8 +148,8 @@ function Chat() {
                         })}
                     </Stack>
                     {tooltipVisible && <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
-                        <Tooltip title="Click to get answer" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}>
-                            <Card color="primary" variant="outlined"
+                        <Tooltip title="Click to get answer" arrow placement="top" >
+                            <Card color="primary" variant="outlined" sx={{flex: 1, p: {xs: 1, md: 2}, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}
                                 onClick={() => handleTip("Brainstorm ideas for a unique and memorable marriage proposal")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
@@ -161,8 +161,8 @@ function Chat() {
                                 </CardContent>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Click to get answer" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}>
-                            <Card color="primary" variant="outlined"
+                        <Tooltip title="Click to get answer" arrow placement="top">
+                            <Card color="primary" variant="outlined" sx={{flex: 1, p: {xs: 1, md: 2}, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}
                                 onClick={() => handleTip("Suggest ways to improve productivity while working from home")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
@@ -174,8 +174,8 @@ function Chat() {
                                 </CardContent>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Click to get answer" arrow placement="top" sx={{flex: 1, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}>
-                            <Card color="primary" variant="outlined"
+                        <Tooltip title="Click to get answer" arrow placement="top" >
+                            <Card color="primary" variant="outlined" sx={{flex: 1, p: {xs: 1, md: 2}, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}
                                 onClick={() => handleTip("Recommend books for a book club focused on fantasy genres")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
