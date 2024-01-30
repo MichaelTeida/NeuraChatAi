@@ -20,7 +20,7 @@ import Menu from '@mui/icons-material/Menu';
 import Input from '@mui/joy/Input';
 import Search from '@mui/icons-material/Search';
 
-function Header() {
+const Header = () => {
     const {mode} = useColorScheme();
     const [logoHeader, setLogoHeader] = useState(mode)
     const [menuNav, setMenuNav] = useState(false)
@@ -29,17 +29,19 @@ function Header() {
         mode === 'light' ? setLogoHeader(logoNeuraChatAi) : setLogoHeader(logoNeuraChatAiWhite)
     }, [mode])
 
-    const openMenu = (event) => {
-        setMenuNav(event.currentTarget)
+    const openMenu = () => {
+        setMenuNav(true)
     }
 
     const handleCloseMenu = () => {
         setMenuNav(false)
     }
 
+
     return (
         <Sheet component="header"
                sx={{
+                   zIndex: "3",
                    display: 'flex',
                    p: 2,
                    flexGrow: 1,

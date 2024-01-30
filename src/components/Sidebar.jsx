@@ -18,8 +18,7 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import {SnackBar} from "./SnackBar.jsx";
 
-const Sidebar = () => {
-    // Początkowe wartości parametrów
+const Sidebar = ({ openSettings }) => {
     const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo')
     const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7)
     const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0)
@@ -71,9 +70,12 @@ const Sidebar = () => {
         setInitialLoad(false);
     }
 
+    useEffect(()=>{
+        console.log(openSettings)
+    }, [openSettings])
+
     return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
         <Divider sx={{mb: 2}}><Chip variant="outlined">Settings</Chip></Divider>
-
         <Box sx={{my: 2, mb: 3}}>
             <Box sx={{mb: 1}} display="flex" justifyContent="space-between" alignItems="center">
                 <Typography component="div" level="title-sm" >Model:</Typography>
