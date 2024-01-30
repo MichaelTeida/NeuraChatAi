@@ -35,7 +35,7 @@ const Header = ({setOpenSettings}) => {
     }
 
     const handleOpenSettings = () => {
-        setOpenSettings(true)
+        setOpenSettings(prevState => !prevState);
     }
 
     const handleCloseMenu = () => {
