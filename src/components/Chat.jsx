@@ -77,7 +77,7 @@ function Chat() {
             }
         ]);
         setInput("")
-        sendMessage(input, (errorMessage) => {
+        sendMessage(tip, (errorMessage) => {
             setMessageSnackbar(errorMessage);
         }).then((response) => {
             setOutput(response)
