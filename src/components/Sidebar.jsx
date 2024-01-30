@@ -13,7 +13,7 @@ import {
     Button,
 } from "@mui/joy";
 import {useEffect, useState, useMemo} from "react";
-import {setOpenAiParams} from "../lib/OpenAi.jsx";
+import {SetOpenAiParams} from "../lib/OpenAi.jsx";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import {SnackBar} from "./SnackBar.jsx";
@@ -52,7 +52,7 @@ const Sidebar = ({openSettings, setOpenSettings}) => {
     useEffect(() => {
         if (initialLoad) {
             const timeout = setTimeout(() => {
-                setOpenAiParams(params);
+                SetOpenAiParams(params);
                 setMessageSnackbar("Settings changed");
             }, 400);
             return () => clearTimeout(timeout);

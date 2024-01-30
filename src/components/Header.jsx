@@ -10,7 +10,7 @@ import {
     Stack,
     Typography
 } from "@mui/joy";
-import {Link as RouterLink} from "react-router-dom";
+import {Link as RouterLink, useLocation} from "react-router-dom";
 import logoNeuraChatAi from "../assets/logo NeuraChatAi.png"
 import logoNeuraChatAiWhite from "../assets/logo NeuraChatAi white.png"
 import ModeToggle from "./ModeToggle.jsx";
@@ -20,11 +20,13 @@ import Menu from '@mui/icons-material/Menu';
 import Input from '@mui/joy/Input';
 import Search from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
+import TokensLimiter from "./TokensLimiter.jsx";
 
 const Header = ({setOpenSettings}) => {
     const {mode} = useColorScheme();
     const [logoHeader, setLogoHeader] = useState(mode)
     const [menuNav, setMenuNav] = useState(false)
+    const location = useLocation();
 
     useEffect(() => {
         mode === 'light' ? setLogoHeader(logoNeuraChatAi) : setLogoHeader(logoNeuraChatAiWhite)
@@ -55,7 +57,7 @@ const Header = ({setOpenSettings}) => {
                    alignItems: "center",
                    height: 'var(--Header-height)',
                    borderBottom: '1px solid', borderColor: 'divider',
-                   gap: 2
+                   gap: {xs: 1, md: 2}
                }}>
             <GlobalStyles
                 styles={(theme) => ({
@@ -84,6 +86,11 @@ const Header = ({setOpenSettings}) => {
                     <RouterLink to="/NeuraChatAi/about"><Typography>About</Typography></RouterLink>
                 </Stack>
             </Stack>
+            <Box>
+                <Typography level="body-sm">
+                    Available tokens: <TokensLimiter/>
+                </Typography>
+            </Box>
             <Stack direction="row"
                    justifyContent="center"
                    alignItems="center"
@@ -125,9 +132,9 @@ const Header = ({setOpenSettings}) => {
                 />
             </Stack>
             <ModeToggle/>
-            <IconButton variant="outlined" color="neutral" onClick={handleOpenSettings} sx={{display: {xs: "flex", md: "none"}}}>
+            {location.pathname === '/NeuraChatAi/' && <IconButton variant="outlined" color="neutral" onClick={handleOpenSettings} sx={{display: {xs: "flex", md: "none"}}}>
                 <SettingsIcon/>
-            </IconButton>
+            </IconButton>}
             <IconButton variant="outlined" color="neutral" onClick={openMenu} sx={{display: {xs: "flex", md: "none"}}}>
                 <Menu/>
             </IconButton>

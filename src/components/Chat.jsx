@@ -14,7 +14,7 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
 import {useEffect, useState, useRef} from "react";
-import {sendMessage} from "../lib/OpenAi.jsx";
+import {SendMessage} from "../lib/OpenAi.jsx";
 import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
 import CopyToClipboardBtn from "../components/CopyToClipboardBtn.jsx"
 import dayjs from "dayjs";
@@ -60,7 +60,7 @@ function Chat() {
             {isHuman: true, content: input, timestamp: dayjs().calendar().toString(),}
         ]);
         setInput("")
-        sendMessage(input, (errorMessage) => {
+        SendMessage(input, (errorMessage) => {
             setMessageSnackbar(errorMessage);
         }).then((response) => {
             setOutput(response)
@@ -77,7 +77,7 @@ function Chat() {
             }
         ]);
         setInput("")
-        sendMessage(tip, (errorMessage) => {
+        SendMessage(tip, (errorMessage) => {
             setMessageSnackbar(errorMessage);
         }).then((response) => {
             setOutput(response)

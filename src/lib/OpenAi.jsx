@@ -13,11 +13,11 @@ let openAiParams = {
     top_p: 1, // shrinks or grows the “pool” of available tokens to choose from, the domain to select over. 1=big pool, 0=small pool
 };
 
-export function setOpenAiParams(newParams) {
+export function SetOpenAiParams(newParams) {
     openAiParams = {...openAiParams, ...newParams};
 }
 
-export async function sendMessage(message, setError) {
+export async function SendMessage(message, setError) {
 
     try {
         const chatCompletion = await openai.chat.completions.create({
