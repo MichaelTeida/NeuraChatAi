@@ -19,8 +19,9 @@ import {useColorScheme} from '@mui/joy/styles';
 import Menu from '@mui/icons-material/Menu';
 import Input from '@mui/joy/Input';
 import Search from '@mui/icons-material/Search';
+import SettingsIcon from '@mui/icons-material/Settings';
 
-const Header = () => {
+const Header = ({setOpenSettings}) => {
     const {mode} = useColorScheme();
     const [logoHeader, setLogoHeader] = useState(mode)
     const [menuNav, setMenuNav] = useState(false)
@@ -31,6 +32,10 @@ const Header = () => {
 
     const openMenu = () => {
         setMenuNav(true)
+    }
+
+    const handleOpenSettings = () => {
+        setOpenSettings(true)
     }
 
     const handleCloseMenu = () => {
@@ -118,10 +123,13 @@ const Header = () => {
                 />
             </Stack>
             <ModeToggle/>
+            <IconButton variant="outlined" color="neutral" onClick={handleOpenSettings} sx={{display: {xs: "flex", md: "none"}}}>
+                <SettingsIcon/>
+            </IconButton>
             <IconButton variant="outlined" color="neutral" onClick={openMenu} sx={{display: {xs: "flex", md: "none"}}}>
                 <Menu/>
             </IconButton>
-            <Drawer open={menuNav} onClose={() => handleCloseMenu(false)}>
+            <Drawer open={menuNav} onClose={handleCloseMenu}>
                 <Box
                     sx={{
                         display: 'flex',
@@ -137,7 +145,7 @@ const Header = () => {
                         htmlFor="close-icon"
                         fontSize="sm"
                         fontWeight="lg"
-                        sx={{cursor: 'pointer'}}
+                        sx={{cursor: 'pointer', pb: 0.3}}
                     >
                         Close
                     </Typography>
@@ -179,10 +187,14 @@ const Header = () => {
                 />
                 <List spacing={2}
                       sx={{display: {xs: "flex", md: "none"}}}>
-                    <RouterLink to="/NeuraChatAi/"><ListItemButton
-                        sx={{justifyContent: "center"}}><Typography>Homepage</Typography></ListItemButton></RouterLink>
-                    <RouterLink to="/NeuraChatAi/about"><ListItemButton
-                        sx={{justifyContent: "center"}}><Typography>About</Typography></ListItemButton></RouterLink>
+                    <RouterLink to="/NeuraChatAi/">
+                        <ListItemButton sx={{justifyContent: "center"}}><Typography>Homepage</Typography>
+                        </ListItemButton>
+                    </RouterLink>
+                    <RouterLink to="/NeuraChatAi/about">
+                        <ListItemButton sx={{justifyContent: "center"}}><Typography>About</Typography>
+                        </ListItemButton>
+                    </RouterLink>
                 </List>
             </Drawer>
         </Sheet>

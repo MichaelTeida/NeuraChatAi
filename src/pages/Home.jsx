@@ -5,13 +5,13 @@ import Header from "../components/Header.jsx";
 import {useState} from "react";
 
 export function Home() {
-    const [openSettingss] = useState();
+    const [openSettings, setOpenSettings] = useState(false);
 
     return (
         <>
-            <Header openSettings={openSettingss} />
+            <Header setOpenSettings={setOpenSettings} />
             <Box sx={{display: 'flex', height: 'calc(100dvh - var(--Header-height))', justifyContent: 'space-between'}}>
-                <Sidebar openSettings={openSettingss}/>
+                <Sidebar openSettings={openSettings} setOpenSettings={setOpenSettings}/>
                 <Container>
                     <Chat />
                 </Container>

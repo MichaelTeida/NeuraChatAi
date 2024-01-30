@@ -10,15 +10,16 @@ import {
     Tooltip,
     IconButton,
     selectClasses,
-    Button
+    Button,
 } from "@mui/joy";
 import {useEffect, useState, useMemo} from "react";
 import {setOpenAiParams} from "../lib/OpenAi.jsx";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import KeyboardArrowDown from '@mui/icons-material/KeyboardArrowDown'
 import {SnackBar} from "./SnackBar.jsx";
+import CloseIcon from '@mui/icons-material/Close';
 
-const Sidebar = ({ openSettings }) => {
+const Sidebar = ({openSettings, setOpenSettings}) => {
     const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo')
     const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7)
     const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0)
@@ -48,7 +49,7 @@ const Sidebar = ({ openSettings }) => {
         top_p: topP,
     }), [model, temperature, maxTokens, frequencyPenalty, topP]);
 
-    useEffect( () => {
+    useEffect(() => {
         if (initialLoad) {
             const timeout = setTimeout(() => {
                 setOpenAiParams(params);
@@ -70,30 +71,70 @@ const Sidebar = ({ openSettings }) => {
         setInitialLoad(false);
     }
 
-    useEffect(()=>{
-        console.log(openSettings)
-    }, [openSettings])
+    const handleCloseSettings = () => {
+        setOpenSettings(false)
+    }
 
-    return <Sheet sx={{display: {xs: "none", md: "flow"}, borderRight: '1px solid', borderColor: 'divider', overflowY: 'scroll', width: "25rem", p: 3}}>
-        <Divider sx={{mb: 2}}><Chip variant="outlined">Settings</Chip></Divider>
-        <Box sx={{my: 2, mb: 3}}>
+    return <Sheet sx={{
+        ...(openSettings ? {
+            display: {xs: "flow", md: "none"},
+            position: "fixed",
+            width: "100dvw",
+            zIndex: 3
+        } : {display: {xs: "none", md: "flow"}, position: "initial", width: "25rem"}),
+        height: "calc(100dvh - var(--Header-height))",
+        borderRight: '1px solid',
+        borderColor: 'divider',
+        overflowY: 'scroll',
+        p: 3
+    }}>
+        <Box sx={{mb: 1, display: {xs: "auto", md: "none"}}}>
+            <Box display="flex" flexDirection="row" justifyContent="space-between" alignItems="center" sx={{mb: 2}}>
+                <Typography fontWeight="xl" fontSize="lg">Settings</Typography>
+                <Button variant="outlined" onClick={handleCloseSettings}
+                        sx={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: 0.5,
+                            ml: 'auto',
+                        }}
+                >
+                    <Typography
+                        component="label"
+                        htmlFor="close-icon"
+                        fontSize="sm"
+                        fontWeight="lg"
+                        sx={{cursor: 'pointer', pb: 0.3}}
+                    >
+                        Close
+                    </Typography>
+                    <CloseIcon id="close-icon" sx={{position: 'initial'}}/>
+                </Button>
+            </Box>
+            <Divider/>
+        </Box>
+        <Divider sx={{mb: 2, display: {xs: "none", md: "flex"}}}><Chip variant="outlined">Settings</Chip></Divider>
+        <Box sx={{mb: 3}}>
             <Box sx={{mb: 1}} display="flex" justifyContent="space-between" alignItems="center">
-                <Typography component="div" level="title-sm" >Model:</Typography>
-                <Tooltip title={<div>Choose the AI language model for your chat. <br/>Different models have varying capabilities and performance.</div>}
-                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                <Typography component="div" level="title-sm">Model:</Typography>
+                <Tooltip title={<div>Choose the AI language model for your chat. <br/>Different models have varying
+                    capabilities and performance.</div>}
+                         size="sm" placement="top" sx={{whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
                     <IconButton size="sm" sx={{borderRadius: 40}}>
                         <InfoOutlinedIcon/>
                     </IconButton>
                 </Tooltip>
             </Box>
-            <Select value={model} defaultValue={model} size="sm" onChange={(event, value) => setModel(value)} indicator={<KeyboardArrowDown />}
+            <Select value={model} defaultValue={model} size="sm" onChange={(event, value) => setModel(value)}
+                    indicator={<KeyboardArrowDown/>}
                     sx={{
-                            [`& .${selectClasses.indicator}`]: {
-                                transition: '0.2s',
-                                [`&.${selectClasses.expanded}`]: {
-                                    transform: 'rotate(-180deg)',
-                                },
-                            }}}>
+                        [`& .${selectClasses.indicator}`]: {
+                            transition: '0.2s',
+                            [`&.${selectClasses.expanded}`]: {
+                                transform: 'rotate(-180deg)',
+                            },
+                        }
+                    }}>
                 <Option value="gpt-3.5-turbo">gpt-3.5-turbo</Option>
                 <Option value="gpt-3.5-turbo-0301">gpt-3.5-turbo-0301</Option>
                 <Option value="gpt-3.5-turbo-0613">gpt-3.5-turbo-0613</Option>
@@ -110,11 +151,12 @@ const Sidebar = ({ openSettings }) => {
 
         <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography component="div" level="title-sm">Temperature: <Chip variant="soft">{temperature}</Chip></Typography>
+                <Typography component="div" level="title-sm">Temperature: <Chip
+                    variant="soft">{temperature}</Chip></Typography>
                 <Tooltip title={<div>Control the randomness of AI responses. Higher values (e.g., 0.8) make output
                     more<br/> diverse, while lower values (e.g., 0.2) yield focused and deterministic replies.<br/>
                     Adjust alongside top-p, but not both. (Default: 1)</div>}
-                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                         size="sm" placement="top" sx={{whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
                     <IconButton size="sm" sx={{borderRadius: 40}}>
                         <InfoOutlinedIcon/>
                     </IconButton>
@@ -139,11 +181,12 @@ const Sidebar = ({ openSettings }) => {
 
         <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography component="div" level="title-sm">Frequency Penalty: <Chip variant="soft">{frequencyPenalty}</Chip></Typography>
+                <Typography component="div" level="title-sm">Frequency Penalty: <Chip
+                    variant="soft">{frequencyPenalty}</Chip></Typography>
                 <Tooltip title={<div>Influence tendency to introduce new topics.<br/> Positive values (0 to 2.0)
                     penalize new tokens based on their presence in the text,<br/> encouraging the AI to explore and
                     discuss fresh ideas. (Default: 0)</div>}
-                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                         size="sm" placement="top" sx={{whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
                     <IconButton size="sm" sx={{borderRadius: 40}}>
                         <InfoOutlinedIcon/>
                     </IconButton>
@@ -168,11 +211,12 @@ const Sidebar = ({ openSettings }) => {
 
         <Box sx={{my: 2}}>
             <Box display="flex" justifyContent="space-between" alignItems="center">
-                <Typography component="div" level="title-sm">Max tokens: <Chip variant="soft">{maxTokens}</Chip></Typography>
+                <Typography component="div" level="title-sm">Max tokens: <Chip
+                    variant="soft">{maxTokens}</Chip></Typography>
                 <Tooltip title={<div>Limit the total tokens generated in chat completion.<br/> The sum of input and
                     output tokens is restricted by the context length.<br/> Adjust this to manage the length of
                     your AI-generated responses.</div>}
-                         size="sm" placement="top"  sx={{ whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
+                         size="sm" placement="top" sx={{whiteSpace: 'pre-line', textAlign: "center", p: 1}}>
                     <IconButton size="sm" sx={{borderRadius: 40}}>
                         <InfoOutlinedIcon/>
                     </IconButton>
@@ -226,7 +270,9 @@ const Sidebar = ({ openSettings }) => {
         </Box>
 
         <Box sx={{my: 2}}>
-            <Button onClick={() => {handleReset()}} color="primary" variant="soft" sx={{width: "100%"}}> Reset settings </Button>
+            <Button onClick={() => {
+                handleReset()
+            }} color="primary" variant="soft" sx={{width: "100%"}}> Reset settings </Button>
         </Box>
         <SnackBar message={messageSnackbar} closeSnackBar={setMessageSnackbar}/>
     </Sheet>
