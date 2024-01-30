@@ -72,9 +72,11 @@ const Header = ({setOpenSettings}) => {
                    alignItems="center"
                    spacing={2}
                    flex={1}>
+                <RouterLink to="/NeuraChatAi/">
                 <Box component="img" src={logoHeader} alt={"Logo NeuraChatAi"} sx={{
                     maxWidth: {xs: 100, md: 100},
                 }}/>
+                </RouterLink>
                 <Stack direction="row"
                        spacing={2}
                        sx={{display: {xs: "none", md: "flex"}}}>
