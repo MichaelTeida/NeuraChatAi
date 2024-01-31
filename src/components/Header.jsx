@@ -9,7 +9,7 @@ import {
     Sheet,
     Stack,
     Typography,
-    Tooltip
+    Tooltip, Dropdown, MenuButton, MenuItem, Menu, Avatar
 } from "@mui/joy";
 import {Link as RouterLink, useLocation} from "react-router-dom";
 import logoNeuraChatAi from "../assets/logo NeuraChatAi.png"
@@ -17,7 +17,7 @@ import logoNeuraChatAiWhite from "../assets/logo NeuraChatAi white.png"
 import ModeToggle from "./ModeToggle.jsx";
 import {useContext, useEffect, useState} from "react";
 import {useColorScheme} from '@mui/joy/styles';
-import Menu from '@mui/icons-material/Menu';
+import MenuIcon from '@mui/icons-material/Menu';
 import Input from '@mui/joy/Input';
 import Search from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -135,6 +135,15 @@ const Header = ({setOpenSettings}) => {
                     />
                 </Stack>
                 <ModeToggle/>
+                    <Dropdown >
+                        <MenuButton  sx={{borderRadius: 20, p: 0, ml: {xs: 0, md: 2}}} slots={{ root: IconButton }} slotProps={{ root: { variant: 'outlined', color: 'neutral'} }}
+                        ><Avatar variant="plain"/></MenuButton>
+                        <Menu>
+                            <MenuItem disabled>Profile</MenuItem>
+                            <MenuItem disabled>My account</MenuItem>
+                            <MenuItem disabled>Logout</MenuItem>
+                        </Menu>
+                    </Dropdown>
             </Stack>
 
             {location.pathname === '/NeuraChatAi/' &&
@@ -143,7 +152,7 @@ const Header = ({setOpenSettings}) => {
                     <SettingsIcon/>
                 </IconButton>}
             <IconButton variant="outlined" color="neutral" onClick={openMenu} sx={{display: {xs: "flex", md: "none"}}}>
-                <Menu/>
+                <MenuIcon/>
             </IconButton>
             <Drawer open={menuNav} onClose={handleCloseMenu}>
                 <Box
