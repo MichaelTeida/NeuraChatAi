@@ -28,7 +28,7 @@ const Header = ({setOpenSettings}) => {
     const [logoHeader, setLogoHeader] = useState(mode)
     const [menuNav, setMenuNav] = useState(false)
     const location = useLocation();
-    const { availableActions } = useContext(ActionsContext);
+    const {availableActions} = useContext(ActionsContext);
 
     useEffect(() => {
         mode === 'light' ? setLogoHeader(logoNeuraChatAi) : setLogoHeader(logoNeuraChatAiWhite)
@@ -77,9 +77,9 @@ const Header = ({setOpenSettings}) => {
                    spacing={2}
                    flex={1}>
                 <RouterLink to="/NeuraChatAi/">
-                <Box component="img" src={logoHeader} alt={"Logo NeuraChatAi"} sx={{
-                    maxWidth: {xs: 100, md: 100},
-                }}/>
+                    <Box component="img" src={logoHeader} alt={"Logo NeuraChatAi"} sx={{
+                        maxWidth: {xs: 100, md: 100},
+                    }}/>
                 </RouterLink>
                 <Stack direction="row"
                        spacing={2}
@@ -88,57 +88,60 @@ const Header = ({setOpenSettings}) => {
                     <RouterLink to="/NeuraChatAi/about"><Typography>About</Typography></RouterLink>
                 </Stack>
             </Stack>
-            <Box>
-                <Tooltip title="Refresh on every 20 sec." arrow>
-                    <Typography sx={{ fontSize: {xs: 10, md: 'sm'}}}>
-                        Available actions: {availableActions} / 3
-                    </Typography>
-                </Tooltip>
-            </Box>
-            <Stack direction="row"
-                   justifyContent="center"
-                   alignItems="center"
-                   spacing={1}
-                   sx={{display: {xs: "none", md: "flex"}}}>
-                <Input
-                    size="sm"
-                    placeholder="Search"
-                    variant="plain"
-                    endDecorator={<Search/>}
-                    slotProps={{
-                        input: {
-                            'aria-label': 'Search anything',
-                        },
-                    }}
-                    sx={{
-                        m: 3,
-                        mb: 2,
-                        borderRadius: 0,
-                        borderBottom: '2px solid',
-                        borderColor: 'neutral.outlinedBorder',
-                        '&:hover': {
-                            borderColor: 'neutral.outlinedHoverBorder',
-                        },
-                        '&::before': {
-                            border: '1px solid var(--Input-focusedHighlight)',
-                            transform: 'scaleX(0)',
-                            left: 0,
-                            right: 0,
-                            bottom: '-2px',
-                            top: 'unset',
-                            transition: 'transform .15s cubic-bezier(0.1,0.9,0.2,1)',
+            <Tooltip title="Refresh on every 20 sec." arrow>
+                <Typography sx={{fontSize: {xs: 10, md: 'sm'}}}>
+                    Available actions: {availableActions} / 3
+                </Typography>
+            </Tooltip>
+            <Stack direction="row">
+                <Stack direction="row"
+                       justifyContent="center"
+                       alignItems="center"
+                       spacing={1}
+                       sx={{display: {xs: "none", md: "flex"}}}>
+                    <Input
+                        size="sm"
+                        placeholder="Search"
+                        variant="plain"
+                        endDecorator={<Search/>}
+                        slotProps={{
+                            input: {
+                                'aria-label': 'Search anything',
+                            },
+                        }}
+                        sx={{
+                            m: 3,
+                            mb: 2,
                             borderRadius: 0,
-                        },
-                        '&:focus-within::before': {
-                            transform: 'scaleX(1)',
-                        },
-                    }}
-                />
+                            borderBottom: '2px solid',
+                            borderColor: 'neutral.outlinedBorder',
+                            '&:hover': {
+                                borderColor: 'neutral.outlinedHoverBorder',
+                            },
+                            '&::before': {
+                                border: '1px solid var(--Input-focusedHighlight)',
+                                transform: 'scaleX(0)',
+                                left: 0,
+                                right: 0,
+                                bottom: '-2px',
+                                top: 'unset',
+                                transition: 'transform .15s cubic-bezier(0.1,0.9,0.2,1)',
+                                borderRadius: 0,
+                            },
+                            '&:focus-within::before': {
+                                transform: 'scaleX(1)',
+                            },
+                        }}
+                    />
+                </Stack>
+                <ModeToggle/>
             </Stack>
-            <ModeToggle/>
-            {location.pathname === '/NeuraChatAi/' && <IconButton variant="outlined" color="neutral" onClick={handleOpenSettings} sx={{display: {xs: "flex", md: "none"}}}>
-                <SettingsIcon/>
-            </IconButton>}
+
+            {location.pathname === '/NeuraChatAi/' &&
+                <IconButton variant="outlined" color="neutral" onClick={handleOpenSettings}
+                            sx={{display: {xs: "flex", md: "none"}}}>
+                    <SettingsIcon/>
+                </IconButton>}
             <IconButton variant="outlined" color="neutral" onClick={openMenu} sx={{display: {xs: "flex", md: "none"}}}>
                 <Menu/>
             </IconButton>
