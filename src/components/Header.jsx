@@ -135,15 +135,17 @@ const Header = ({setOpenSettings}) => {
                     />
                 </Stack>
                 <ModeToggle/>
-                    <Dropdown >
-                        <MenuButton  sx={{borderRadius: 20, p: 0, ml: {xs: 0, md: 2}}} slots={{ root: IconButton }} slotProps={{ root: { variant: 'outlined', color: 'neutral'} }}
-                        ><Avatar variant="plain"/></MenuButton>
-                        <Menu>
-                            <MenuItem disabled>Profile</MenuItem>
-                            <MenuItem disabled>My account</MenuItem>
-                            <MenuItem disabled>Logout</MenuItem>
-                        </Menu>
-                    </Dropdown>
+                <Dropdown>
+                    <MenuButton slots={{root: IconButton}} slotProps={{root: {variant: 'outlined', color: 'neutral'}}}
+                                sx={{borderRadius: 20, p: 0, ml: {xs: 0, md: 2}, display: {xs: "none", md: "initial"}}}>
+                        <Avatar variant="plain"/>
+                    </MenuButton>
+                    <Menu>
+                        <MenuItem disabled>Profile</MenuItem>
+                        <MenuItem disabled>My account</MenuItem>
+                        <MenuItem disabled>Logout</MenuItem>
+                    </Menu>
+                </Dropdown>
             </Stack>
 
             {location.pathname === '/NeuraChatAi/' &&
@@ -221,6 +223,23 @@ const Header = ({setOpenSettings}) => {
                         </ListItemButton>
                     </RouterLink>
                 </List>
+
+                <Box
+                    sx={{
+                        display: 'flex',
+                        gap: 1,
+                        p: 1.5,
+                        pb: 2,
+                        borderTop: '1px solid',
+                        borderColor: 'divider',
+                    }}
+                >
+                    <Avatar size="lg"/>
+                    <div>
+                        <Typography level="title-md">Username</Typography>
+                        <Typography level="body-sm">joined 20 Jun 2023</Typography>
+                    </div>
+                </Box>
             </Drawer>
         </Sheet>
     )

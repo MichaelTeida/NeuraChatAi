@@ -70,7 +70,8 @@ function Chat() {
         }, IncreaseAvailableActions).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
-        }).catch(() => {
+        }).catch((error) => {
+            console.log(error)
             IncreaseImmediatelyAvailableActions()
         })
     }
@@ -91,7 +92,8 @@ function Chat() {
         }, DecreaseAvailableActions).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
-        }).catch(() => {
+        }).catch((error) => {
+            console.log(error)
             IncreaseImmediatelyAvailableActions()
         })
     }

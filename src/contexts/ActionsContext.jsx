@@ -17,11 +17,10 @@ const ActionsProvider = ({children}) => {
                 setAvailableActions((prevActions) => prevActions + 1)
             }, 20000)
         }
-        console.log(timeRemaining)
     }
 
     const IncreaseImmediatelyAvailableActions = () => {
-        if (availableActions <= 3) {
+        if (availableActions < 3) {
             setAvailableActions((prevActions) => prevActions + 1);
         }
     }
