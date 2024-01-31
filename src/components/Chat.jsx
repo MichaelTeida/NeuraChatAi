@@ -36,7 +36,6 @@ function Chat() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [formDisabled, setFormDisabled] = useState(false);
     const [tooltipVisible, setTooltipVisible] = useState(true);
-    const {availableActions} = useContext(ActionsContext);
     const {DecreaseAvailableActions} = useContext(ActionsContext);
     const {IncreaseAvailableActions} = useContext(ActionsContext)
     const {IncreaseImmediatelyAvailableActions} = useContext(ActionsContext)
@@ -73,7 +72,6 @@ function Chat() {
             setOutput(response)
         }).catch((error) => {
             IncreaseImmediatelyAvailableActions()
-            throw error
         })
     }
 
@@ -93,7 +91,7 @@ function Chat() {
         }, DecreaseAvailableActions).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
-        }).catch(() => {
+        }).catch((error) => {
             IncreaseImmediatelyAvailableActions()
         })
     }
