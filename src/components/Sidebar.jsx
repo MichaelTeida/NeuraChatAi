@@ -67,8 +67,11 @@ const Sidebar = ({openSettings, setOpenSettings}) => {
         setMaxTokens(500)
         setFrequencyPenalty(0)
         setTopP(1)
-        setMessageSnackbar("Settings reset");
         setInitialLoad(false);
+        setMessageSnackbar("Settings reset");
+        setTimeout(() => {
+            SetOpenAiParams(params);
+        }, 400);
     }
 
     const handleCloseSettings = () => {

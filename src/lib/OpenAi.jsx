@@ -18,7 +18,6 @@ export function SetOpenAiParams(newParams) {
 }
 
 export async function SendMessage(message, setError) {
-
     try {
         const chatCompletion = await openai.chat.completions.create({
             messages: [{

@@ -13,7 +13,7 @@ import {
 } from "@mui/joy";
 import EditIcon from "@mui/icons-material/Edit";
 import ArrowUpwardIcon from "@mui/icons-material/ArrowUpward";
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState, useRef, useContext} from "react";
 import {SendMessage} from "../lib/OpenAi.jsx";
 import NeuraChatLogoSquare from "../assets/logo NeuraChatAi 100x100.png"
 import CopyToClipboardBtn from "../components/CopyToClipboardBtn.jsx"
@@ -21,6 +21,7 @@ import dayjs from "dayjs";
 import calendar from 'dayjs/plugin/calendar';
 import {SnackBar} from "./SnackBar.jsx";
 import AdsClickIcon from '@mui/icons-material/AdsClick';
+import {ActionsContext} from "../contexts/ActionsContext.jsx";
 
 function Chat() {
     dayjs.extend(calendar);
@@ -35,6 +36,10 @@ function Chat() {
     const [hoveredIndex, setHoveredIndex] = useState(null);
     const [formDisabled, setFormDisabled] = useState(false);
     const [tooltipVisible, setTooltipVisible] = useState(true);
+    const {availableActions} = useContext(ActionsContext);
+    const {DecreaseAvailableActions} = useContext(ActionsContext);
+    const {IncreaseAvailableActions} = useContext(ActionsContext)
+    const {IncreaseImmediatelyAvailableActions} = useContext(ActionsContext)
 
     const messagesEndRef = useRef(null);
 
@@ -55,6 +60,7 @@ function Chat() {
     }, [messages])
 
     const handleSend = () => {
+        DecreaseAvailableActions()
         setMessages((prevMessages) => [
             ...prevMessages,
             {isHuman: true, content: input, timestamp: dayjs().calendar().toString(),}
@@ -62,12 +68,17 @@ function Chat() {
         setInput("")
         SendMessage(input, (errorMessage) => {
             setMessageSnackbar(errorMessage);
-        }).then((response) => {
+        }, IncreaseAvailableActions).then(async (response) => {
+            IncreaseAvailableActions()
             setOutput(response)
+        }).catch((error) => {
+            IncreaseImmediatelyAvailableActions()
+            throw error
         })
     }
 
-    const handleTip = (tip) => {
+    const handleTip = async (tip) => {
+        DecreaseAvailableActions()
         setMessages(prevMessages => [
             ...prevMessages,
             {
@@ -77,10 +88,13 @@ function Chat() {
             }
         ]);
         setInput("")
-        SendMessage(tip, (errorMessage) => {
+        await SendMessage(tip, (errorMessage) => {
             setMessageSnackbar(errorMessage);
-        }).then((response) => {
+        }, DecreaseAvailableActions).then(async (response) => {
+            IncreaseAvailableActions()
             setOutput(response)
+        }).catch(() => {
+            IncreaseImmediatelyAvailableActions()
         })
     }
 
@@ -99,9 +113,9 @@ function Chat() {
                 backgroundColor: 'background.level1',
                 pl: {xs: 2, md: 2},
                 justifyContent: "space-between",
-                gap: 0
+                gap: 0,
             }}>
-                <Stack display="flex" height="100%" >
+                <Stack display="flex" height="100%">
                     <Stack spacing={1.5} sx={{flex: 1, pb: 2}}>
                         {messages.map((el, index) => {
                             return (
@@ -152,9 +166,13 @@ function Chat() {
                         })}
                     </Stack>
                     {tooltipVisible && <Stack direction={{xs: "column", md: "row"}} spacing={2} justifyContent="center">
-                        <Tooltip title="Click to get answer" arrow placement="top" >
-                            <Card color="primary" variant="outlined" sx={{flex: 1, p: {xs: 1, md: 2}, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}
-                                onClick={() => handleTip("Brainstorm ideas for a unique and memorable marriage proposal")}>
+                        <Tooltip title="Click to get answer" arrow placement="top">
+                            <Card color="primary" variant="outlined" sx={{
+                                flex: 1,
+                                p: {xs: 1, md: 2},
+                                "&:hover": {cursor: "pointer", filter: "brightness(97%)"}
+                            }}
+                                  onClick={() => handleTip("Brainstorm ideas for a unique and memorable marriage proposal")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
                                         <Typography level="title-sm">Brainstorm ideas</Typography>
@@ -166,8 +184,12 @@ function Chat() {
                             </Card>
                         </Tooltip>
                         <Tooltip title="Click to get answer" arrow placement="top">
-                            <Card color="primary" variant="outlined" sx={{flex: 1, p: {xs: 1, md: 2}, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}
-                                onClick={() => handleTip("Suggest ways to improve productivity while working from home")}>
+                            <Card color="primary" variant="outlined" sx={{
+                                flex: 1,
+                                p: {xs: 1, md: 2},
+                                "&:hover": {cursor: "pointer", filter: "brightness(97%)"}
+                            }}
+                                  onClick={() => handleTip("Suggest ways to improve productivity while working from home")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
                                         <Typography level="title-sm">Suggest ways</Typography>
@@ -178,9 +200,13 @@ function Chat() {
                                 </CardContent>
                             </Card>
                         </Tooltip>
-                        <Tooltip title="Click to get answer" arrow placement="top" >
-                            <Card color="primary" variant="outlined" sx={{flex: 1, p: {xs: 1, md: 2}, "&:hover": {cursor: "pointer", filter: "brightness(97%)"}}}
-                                onClick={() => handleTip("Recommend books for a book club focused on fantasy genres")}>
+                        <Tooltip title="Click to get answer" arrow placement="top">
+                            <Card color="primary" variant="outlined" sx={{
+                                flex: 1,
+                                p: {xs: 1, md: 2},
+                                "&:hover": {cursor: "pointer", filter: "brightness(97%)"}
+                            }}
+                                  onClick={() => handleTip("Recommend books for a book club focused on fantasy genres")}>
                                 <CardContent>
                                     <Stack direction="row" justifyContent="space-between">
                                         <Typography level="title-sm">Recommend books</Typography>

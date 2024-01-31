@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Button, useColorScheme} from '@mui/joy';
+import {Box, Button, useColorScheme} from '@mui/joy';
 
 import LightModeIcon from '@mui/icons-material/LightMode';
 import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded';
@@ -24,9 +24,10 @@ function ModeToggle() {
             onClick={() => {
                 setMode(mode === 'light' ? 'dark' : 'light');
             }}
+            sx={{p: {xs: 1, md: "auto"}, pr: {xs: 0, md: "auto"}}}
         >
             {mode === 'light' ? <DarkModeRoundedIcon sx={{mr: 1}} /> : <LightModeIcon sx={{mr: 1}}/>}
-            {mode === 'light' ? 'Turn dark' : 'Turn light'}
+            <Box sx={{m: 0, display: {xs: 'none', md: 'auto'}}}>{mode === 'light' ? 'Turn dark' : 'Turn light'}</Box>
         </Button>
     );
 }

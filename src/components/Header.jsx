@@ -8,25 +8,27 @@ import {
     ModalClose,
     Sheet,
     Stack,
-    Typography
+    Typography,
+    Tooltip
 } from "@mui/joy";
 import {Link as RouterLink, useLocation} from "react-router-dom";
 import logoNeuraChatAi from "../assets/logo NeuraChatAi.png"
 import logoNeuraChatAiWhite from "../assets/logo NeuraChatAi white.png"
 import ModeToggle from "./ModeToggle.jsx";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {useColorScheme} from '@mui/joy/styles';
 import Menu from '@mui/icons-material/Menu';
 import Input from '@mui/joy/Input';
 import Search from '@mui/icons-material/Search';
 import SettingsIcon from '@mui/icons-material/Settings';
-import TokensLimiter from "./TokensLimiter.jsx";
+import {ActionsContext} from "../contexts/ActionsContext.jsx";
 
 const Header = ({setOpenSettings}) => {
     const {mode} = useColorScheme();
     const [logoHeader, setLogoHeader] = useState(mode)
     const [menuNav, setMenuNav] = useState(false)
     const location = useLocation();
+    const { availableActions } = useContext(ActionsContext);
 
     useEffect(() => {
         mode === 'light' ? setLogoHeader(logoNeuraChatAi) : setLogoHeader(logoNeuraChatAiWhite)
@@ -87,9 +89,11 @@ const Header = ({setOpenSettings}) => {
                 </Stack>
             </Stack>
             <Box>
-                <Typography level="body-sm">
-                    Available tokens: <TokensLimiter/>
-                </Typography>
+                <Tooltip title="Refresh on every 20 sec." arrow>
+                    <Typography sx={{ fontSize: {xs: 10, md: 'sm'}}}>
+                        Available actions: {availableActions} / 3
+                    </Typography>
+                </Tooltip>
             </Box>
             <Stack direction="row"
                    justifyContent="center"
