@@ -24,10 +24,10 @@ function ModeToggle() {
             onClick={() => {
                 setMode(mode === 'light' ? 'dark' : 'light');
             }}
-            sx={{p: {xs: 1, md: "auto"}, pr: {xs: 0, md: "auto"}}}
+            sx={{p: {xs: 1, md: "auto"}, pr: {xs: 0, md: "inherit"}}}
         >
             {mode === 'light' ? <DarkModeRoundedIcon sx={{mr: 1}} /> : <LightModeIcon sx={{mr: 1}}/>}
-            <Box sx={{m: 0, display: {xs: 'none', md: 'auto'}}}>{mode === 'light' ? 'Turn dark' : 'Turn light'}</Box>
+            <Box sx={{m: 0, display: {xs: 'none', md: 'initial'}}}>{mode === 'light' ? 'Turn dark' : 'Turn light'}</Box>
         </Button>
     );
 }
