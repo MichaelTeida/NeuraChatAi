@@ -59,15 +59,15 @@ function Chat() {
     }, [messages])
 
     const handleSend = () => {
-        DecreaseAvailableActions()
         setMessages((prevMessages) => [
             ...prevMessages,
             {isHuman: true, content: input, timestamp: dayjs().calendar().toString(),}
         ]);
         setInput("")
+        DecreaseAvailableActions()
         SendMessage(input, (errorMessage) => {
             setMessageSnackbar(errorMessage);
-        }, IncreaseAvailableActions).then(async (response) => {
+        }).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
         }).catch((error) => {
@@ -76,8 +76,7 @@ function Chat() {
         })
     }
 
-    const handleTip = async (tip) => {
-        DecreaseAvailableActions()
+    const handleTip = (tip) => {
         setMessages(prevMessages => [
             ...prevMessages,
             {
@@ -87,9 +86,10 @@ function Chat() {
             }
         ]);
         setInput("")
-        await SendMessage(tip, (errorMessage) => {
+        DecreaseAvailableActions()
+        SendMessage(tip, (errorMessage) => {
             setMessageSnackbar(errorMessage);
-        }, DecreaseAvailableActions).then(async (response) => {
+        }).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
         }).catch((error) => {

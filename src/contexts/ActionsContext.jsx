@@ -15,12 +15,12 @@ const ActionsProvider = ({children}) => {
         if (availableActions < 3) {
             setTimeout(() => {
                 setAvailableActions((prevActions) => prevActions + 1)
-            }, 20000)
+            }, 8000)
         }
     }
 
     const IncreaseImmediatelyAvailableActions = () => {
-        if (availableActions < 3) {
+        if (availableActions <= 3) {
             setAvailableActions((prevActions) => prevActions + 1);
         }
     }
