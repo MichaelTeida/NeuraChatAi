@@ -10,9 +10,9 @@ NeuraChatAi is an AI-powered chat application that offers customizable chat expe
 - **Responsive Design:** Enjoy smooth interactions across devices.
 - **Customizable Models:** Choose from a selection of models with unique performance.
 - **Dynamic Settings:** Adjust temperature, frequency penalty, max tokens, and top-p for tailored responses.
-- **Actions Counter:** Track API request usage for the current model.
 - **Light/Dark Mode:** Enjoy adaptive color themes for a personalized experience.
 - **Snackbar Alerts:** Receive informative messages and alerts.
+- **Actions Counter:** Track API request usage for the current model.
 - **Auto-scroll:** Automatically move to the latest message for smooth chatting.
 - **Tip Suggestions:** Access conversation starters with ease.
 
