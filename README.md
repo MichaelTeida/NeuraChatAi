@@ -22,8 +22,8 @@ NeuraChatAi is an AI-powered chat application that offers customizable chat expe
 * OpenAI API 4.24.7
 * Joy UI
 * React Router
-* Lodash
 * Material Icons
+* Lodash
 * Day.js
 * Sass
 * JS
@@ -46,5 +46,6 @@ Once the application is running, you can:
 - Engage in conversations in the chat interface.
 - Receive AI-generated responses based on your inputs.
 - Explore tip suggestions for conversation starters.
+
 
 Feel free to reach out if you have any questions, feedback, or suggestions. Happy chatting with NeuraChatAi!

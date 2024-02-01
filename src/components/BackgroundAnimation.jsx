@@ -10,47 +10,29 @@ function BackgroundAnimation() {
         mode === 'light' ? setOpacity("20%") : setOpacity("40%")
     },[mode])
 
+    const generateBoxes = () => {
+        return Array.from({ length: 20 }, (_, index) => (
+            <Box
+                key={index}
+                component="span"
+            ></Box>
+        ));
+    };
+
+    const generateBoxesWithSx = () => {
+        return Array.from({ length: 19 }, (_, index) => (
+            <Box
+                key={index}
+                component="span"
+                sx={{ display: { xs: "none", md: "inline" } }}
+            ></Box>
+        ));
+    };
+
     return (
             <Box sx={{opacity: opacity}} className="background">
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
-                <Box component="span"></Box>
+                {generateBoxes()}
+                {generateBoxesWithSx()}
         </Box>
     );
 }
