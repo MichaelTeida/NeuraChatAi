@@ -17,13 +17,13 @@ export function SetOpenAiParams(newParams) {
     openAiParams = {...openAiParams, ...newParams};
 }
 
-export async function SendMessage(message, setError) {
+export async function SendMessage(message, setError, messages) {
     try {
         const chatCompletion = await openai.chat.completions.create({
             messages: [{
-                "role": "system",
-                "content": "You are NeuraChat, an AI chat system developed by Michael Teida."
-            }, {"role": "user", "content": message}],
+                "role": "system", "content": "You are NeuraChat, an AI chat system developed by Michael Teida. You are designed to provide accurate, detailed, and contextually relevant responses. You understand and respect user's privacy and confidentiality. You are capable of generating creative content, identifying errors, and rectifying them. You strive to be the best AI assistant, always learning and improving."},
+                ...messages.map(({isHuman, content}) => ({"role": isHuman ? "user" : "assistant", "content": content})),
+                {"role": "user", "content": message}],
             ...openAiParams
         })
         return chatCompletion.choices[0].message.content;

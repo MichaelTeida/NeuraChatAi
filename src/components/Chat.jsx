@@ -49,6 +49,7 @@ function Chat() {
                 {isHuman: false, content: output, timestamp: dayjs().calendar().toString(),}
             ]);
         }
+
     }, [output])
 
     useEffect(() => {
@@ -67,7 +68,7 @@ function Chat() {
         DecreaseAvailableActions()
         SendMessage(input, (errorMessage) => {
             setMessageSnackbar(errorMessage);
-        }).then(async (response) => {
+        }, messages).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
         }).catch((error) => {
@@ -89,7 +90,7 @@ function Chat() {
         DecreaseAvailableActions()
         SendMessage(tip, (errorMessage) => {
             setMessageSnackbar(errorMessage);
-        }).then(async (response) => {
+        }, messages).then(async (response) => {
             IncreaseAvailableActions()
             setOutput(response)
         }).catch((error) => {
