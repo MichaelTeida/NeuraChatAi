@@ -86,13 +86,16 @@ const Header = ({setOpenSettings}) => {
                        sx={{display: {xs: "none", md: "flex"}}}>
                     <RouterLink to="/NeuraChatAi/"><Typography>Homepage</Typography></RouterLink>
                     <RouterLink to="/NeuraChatAi/about"><Typography>About</Typography></RouterLink>
+                    <RouterLink to="/NeuraChatAi/features"><Typography>Features</Typography></RouterLink>
                 </Stack>
             </Stack>
-            <Tooltip title="Refresh on every 20 sec." arrow>
-                <Typography sx={{fontSize: {xs: 10, md: 'sm'}}}>
-                    Available actions: {availableActions} / 3
-                </Typography>
-            </Tooltip>
+            {location.pathname === '/NeuraChatAi/' &&
+                <Tooltip title="Refresh on every 20 sec." arrow>
+                    <Typography sx={{fontSize: {xs: 10, md: 'sm'}}}>
+                        Available actions: {availableActions} / 3
+                    </Typography>
+                </Tooltip>
+            }
             <Stack direction="row">
                 <Stack direction="row"
                        justifyContent="center"
@@ -220,6 +223,10 @@ const Header = ({setOpenSettings}) => {
                     </RouterLink>
                     <RouterLink to="/NeuraChatAi/about">
                         <ListItemButton sx={{justifyContent: "center"}}><Typography>About</Typography>
+                        </ListItemButton>
+                    </RouterLink>
+                    <RouterLink to="/NeuraChatAi/features">
+                        <ListItemButton sx={{justifyContent: "center"}}><Typography>Features</Typography>
                         </ListItemButton>
                     </RouterLink>
                 </List>

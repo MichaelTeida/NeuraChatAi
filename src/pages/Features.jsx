@@ -1,8 +1,14 @@
+import {Container} from '@mui/joy'
+import Header from "../components/Header.jsx";
+
 const Features = () => {
     return (
-        <div>
+        <>
+            <Header/>
+            <Container>
 
-        </div>
+            </Container>
+        </>
     );
 };
 

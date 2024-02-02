@@ -3,7 +3,9 @@ import {useState, createContext} from "react";
 const ActionsContext = createContext()
 
 const ActionsProvider = ({children}) => {
-    const [availableActions, setAvailableActions] = useState(3)
+    const MAX_ACTIONS = 3
+    const TIMEOUT_DURATION = 20000
+    const [availableActions, setAvailableActions] = useState(MAX_ACTIONS)
 
     const DecreaseAvailableActions = () => {
         if (availableActions > 0) {
@@ -12,18 +14,20 @@ const ActionsProvider = ({children}) => {
     }
 
     const IncreaseAvailableActions = () => {
-        if (availableActions < 3) {
-            setTimeout(() => {
+        if (availableActions <= MAX_ACTIONS) {
+            const timeout = setTimeout(() => {
                 setAvailableActions((prevActions) => prevActions + 1)
-            }, 8000)
+            }, TIMEOUT_DURATION)
+
+            return () => clearTimeout(timeout)
         }
-    }
+    };
 
     const IncreaseImmediatelyAvailableActions = () => {
-        if (availableActions <= 3) {
-            setAvailableActions((prevActions) => prevActions + 1);
+        if (availableActions <= MAX_ACTIONS) {
+            setAvailableActions((prevActions) => prevActions + 1)
         }
-    }
+    };
 
     return <ActionsContext.Provider value={{
         availableActions,
