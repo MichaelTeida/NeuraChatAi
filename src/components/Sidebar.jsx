@@ -23,7 +23,7 @@ const Sidebar = ({openSettings, setOpenSettings}) => {
     const [model, setModel] = useState(localStorage.getItem('model') || 'gpt-3.5-turbo')
     const [temperature, setTemperature] = useState(parseFloat(localStorage.getItem('temperature')) || 0.7)
     const [frequencyPenalty, setFrequencyPenalty] = useState(parseFloat(localStorage.getItem('frequencyPenalty')) || 0)
-    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 3000)
+    const [maxTokens, setMaxTokens] = useState(parseInt(localStorage.getItem('maxTokens')) || 400)
     const [topP, setTopP] = useState(parseFloat(localStorage.getItem('topP')) || 1)
 
     const [messageSnackbar, setMessageSnackbar] = useState("")
@@ -64,7 +64,7 @@ const Sidebar = ({openSettings, setOpenSettings}) => {
     const handleReset = () => {
         setModel("gpt-3.5-turbo")
         setTemperature(0.7)
-        setMaxTokens(3000)
+        setMaxTokens(400)
         setFrequencyPenalty(0)
         setTopP(1)
         setInitialLoad(false);
@@ -233,7 +233,7 @@ const Sidebar = ({openSettings, setOpenSettings}) => {
                 defaultValue={maxTokens}
                 step={1}
                 min={0}
-                max={10000}
+                max={4000}
                 valueLabelDisplay="auto"
                 sx={{
                     "--Slider-thumbWidth": "10px",
