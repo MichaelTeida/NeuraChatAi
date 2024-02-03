@@ -8,6 +8,7 @@ import {About} from "./pages/About.jsx";
 import {CssBaseline, CssVarsProvider} from "@mui/joy";
 import theme from "./theme/theme.jsx";
 import Features from "./pages/Features.jsx";
+import Instruction from "./pages/Instruction.jsx";
 
 
 const routes = [
@@ -22,6 +23,10 @@ const routes = [
             {
                 path: "/NeuraChatAi/about",
                 element: <About/>,
+            },
+            {
+                path: "/NeuraChatAi/instruction",
+                element: <Instruction/>,
             },
             {
                 path: "/NeuraChatAi/features",

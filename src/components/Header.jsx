@@ -86,6 +86,7 @@ const Header = ({setOpenSettings}) => {
                        sx={{display: {xs: "none", md: "flex"}}}>
                     <RouterLink to="/NeuraChatAi/"><Typography>Homepage</Typography></RouterLink>
                     <RouterLink to="/NeuraChatAi/about"><Typography>About</Typography></RouterLink>
+                    <RouterLink to="/NeuraChatAi/instruction"><Typography>Instruction</Typography></RouterLink>
                     <RouterLink to="/NeuraChatAi/features"><Typography>Features</Typography></RouterLink>
                 </Stack>
             </Stack>
@@ -218,15 +219,19 @@ const Header = ({setOpenSettings}) => {
                 <List spacing={2}
                       sx={{display: {xs: "flex", md: "none"}}}>
                     <RouterLink to="/NeuraChatAi/">
-                        <ListItemButton sx={{justifyContent: "center"}}><Typography>Homepage</Typography>
+                        <ListItemButton sx={{justifyContent: "center", p: 1.5}}><Typography sx={{fontSize: 20}}>Homepage</Typography>
                         </ListItemButton>
                     </RouterLink>
                     <RouterLink to="/NeuraChatAi/about">
-                        <ListItemButton sx={{justifyContent: "center"}}><Typography>About</Typography>
+                        <ListItemButton sx={{justifyContent: "center", p: 1.5}}><Typography sx={{fontSize: 20}}>About</Typography>
+                        </ListItemButton>
+                    </RouterLink>
+                    <RouterLink to="/NeuraChatAi/instruction">
+                        <ListItemButton sx={{justifyContent: "center", p: 1.5}}><Typography sx={{fontSize: 20}}>Instruction</Typography>
                         </ListItemButton>
                     </RouterLink>
                     <RouterLink to="/NeuraChatAi/features">
-                        <ListItemButton sx={{justifyContent: "center"}}><Typography>Features</Typography>
+                        <ListItemButton sx={{justifyContent: "center", p: 1.5}}><Typography sx={{fontSize: 20}}>Features</Typography>
                         </ListItemButton>
                     </RouterLink>
                 </List>

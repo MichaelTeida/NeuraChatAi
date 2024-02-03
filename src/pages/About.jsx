@@ -18,7 +18,7 @@ export function About() {
     return (
         <>
             <Header/>
-            <Container sx={{display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: {xs: "column", md: "row"}, minWidth: {md: "1350px"}, p: {xs: 4}, py: {xs: 10}, gap: {xs: 6, md: 0}, minHeight: 'calc(100dvh - var(--Header-height))'}}>
+            <Container sx={{display: "flex", justifyContent: "space-between", alignItems: "center", flexDirection: {xs: "column", md: "row"}, width: {md: "1350px"}, p: {xs: 4}, py: {xs: 10}, gap: {xs: 6, md: 0}, minHeight: 'calc(100dvh - var(--Header-height))'}}>
                 <Box sx={{zIndex: "2",flex: 6, display: "flex", flexDirection: {xs: "column", md: "row"}, gap: 2, flexWrap: "wrap"}}>
                     <Typography component="h1" level="h1" fontSize={{xs: 45, md: 50}}>
                         Welcome to <Typography color={"primary"}>NeuraChat</Typography>
