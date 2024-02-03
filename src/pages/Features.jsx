@@ -1,6 +1,7 @@
-import {Container, Sheet, styled, Typography} from '@mui/joy'
+import {Container, Stack, Sheet, Typography, Divider} from '@mui/joy'
 import Header from "../components/Header.jsx"
 import _ from 'lodash'
+import {motion} from "framer-motion"
 
 const RandomColor = () => {
     const colors = [
@@ -31,50 +32,71 @@ const Features = () => {
         'Tip Suggestions: Access conversation starters with ease.'
     ]
 
-    const AnimatedTypography = styled(Typography)(() => ({
-        "&:hover": {
-            animation: "focusInContractBck 1s"
-        },
-        "@keyframes focusInContractBck": {
-            "0%": {
-                letterSpacing: "1em",
-                "&::-webkit-transform": "translateZ(300px)",
-                transform: "translateZ(300px)",
-                "&::-webkit-filter": "blur(12px)",
-                filter: "blur(12px)",
-                opacity: "0"
-            },
-            "100%": {
-                "&::-webkit-transform": "translateZ(12px)",
-                transform: "translateZ(12px)",
-                "&::-webkit-filter": "blur(0)",
-                filter: "blur(0)",
-                opacity: "1"
-            }
-        }
-    }))
-
     return (
         <>
             <Header/>
-            <Typography level="h1">Features</Typography>
-            {features.map((feature, index) => {
-                return <Sheet key={index} sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    height: 600,
-                    backgroundColor: RandomColor,
-                    filter: `brightness(${_.random(0.70, 1.30, true)})`
-                }}>
-                    <Container sx={{height: 200}}>
-                        <AnimatedTypography level="title-lg" sx={{fontSize: 40}}>
-                            {feature}
-                        </AnimatedTypography>
-                    </Container>
-                </Sheet>
-            })}
+            <Sheet>
+                <Container sx={{height: {xs: 150, md: 250}}}>
+                    <Stack sx={{
+                        height: "100%",
+                        alignItems: "center",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        gap: 2
+                    }}>
+                        <Typography level="h1" sx={{fontSize: {xs: "2rem", md: "3rem"}}}>Features</Typography>
+                        <Divider/>
+                    </Stack>
+                </Container>
+                {features.map((feature, index) => {
+                    return <>
+                        <Sheet key={index} sx={{
+                            display: "flex",
+                            alignItems: "center",
+                            height: {xs: 300, md: 500},
+                            backgroundColor: RandomColor,
+                            p: {xs: 2, md: 2},
+                            filter: `brightness(${_.random(0.90, 1.30, true)})`,
+
+                        }}>
+                            <Container>
+                                <motion.div
+                                    initial={{
+                                        filter: `blur(2px)`,
+                                        opacity: 0,
+                                        scale: 0.5,
+                                        rotate: _.random(-10, 10),
+                                        x: _.random(-250, 250)
+                                    }}
+                                    whileInView={{
+                                        filter: "blur(0)",
+                                        opacity: 1,
+                                        scale: 1,
+                                        rotate: 0,
+                                        x: _.random(-20, 20)
+                                    }}
+                                    transition={{
+                                        duration: 1.1, scale: {
+                                            type: "spring",
+                                            damping: _.random(5, 12),
+                                            stiffness: _.random(90, 110),
+                                            restDelta: 0.001,
+                                            mass: _.random(1, 1.4),
+                                            velocity: _.random(1.5, 2.5)
+                                        }
+                                    }}
+                                >
+                                    <Typography level="title-lg" sx={{fontSize: {xs: 25, md: 40}}}>
+                                        {feature}
+                                    </Typography>
+                                </motion.div>
+                            </Container>
+                        </Sheet>
+                    </>
+                })}
+            </Sheet>
         </>
-    );
-};
+    )
+}
 
 export default Features;
