@@ -35,7 +35,7 @@ To run NeuraChat locally, follow these steps:
 1. Clone this repository.
 2. Navigate to the project directory.
 3. Install dependencies using `npm install` or `yarn install`.
-4. Create `.env` file and put inside code `VITE_OPENAI_API_KEY="**your_OpenAi_key**"` with your OpenAi Api code.
+4. Create `.env` file and put inside code `VITE_OPENAI_API_KEY="your_OpenAi_key"` with your OpenAi Api key.
 5. Start the development server with `npm run dev` or `yarn dev`. You can use `npm run host` or `yarn host` to take a look on your phone.
 6. Open your browser and visit `http://localhost:5173` (port may be different) to view the application.
 
